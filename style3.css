@@ -49,6 +49,7 @@ input{
 .prosseguir{
     background-color: red;
     color: #FFF5F4;
+    font-size: 21px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -143,4 +144,26 @@ h2{
     display: flex;
     justify-content: center;
     padding-top: 21px;
+}
+
+/*---------------*/
+
+.quarta-aba{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.voltar-home{
+    color: #818181;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    font-size: 21px;
+    font-weight: 400;
+    width: 369px;
+    height: 54px;
+    border-radius: 15px;
 }
