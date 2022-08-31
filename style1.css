@@ -51,7 +51,7 @@ header {
     margin-bottom: 20px;
 }
 
-.criar-quizz {
+#criar-quizz {
     color: #EC362D;
     background-color: #fafafa;
     border: #EC362D dashed 1px;
