@@ -51,7 +51,7 @@ header {
     margin-bottom: 20px;
 }
 
-#criar-quizz {
+.criar-quizz {
     color: #EC362D;
     background-color: #fafafa;
     border: #EC362D dashed 1px;
@@ -63,13 +63,13 @@ header {
     margin-bottom: 40px;
 }
 
-#seus-quizzes {
+.seus-quizzes {
     display: flex;
     align-items: center;
     margin-bottom: 12px;
 }
 
-#seus-quizzes>h1 {
+.seus-quizzes>h1 {
     font-size: 20px;
     font-weight: 700;
     color: black;
