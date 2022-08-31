@@ -16,33 +16,39 @@
     <header>
         BuzzQuizz
     </header>
+
     <main class="lista-quizzes">
-        <div class="quizzes-vazios escondido">
-            <p>Você não criou nenhum quizz ainda :(</p>
-            <button id="criar-quizz">Criar Quizz</button>
-        </div>
-        <div id="seus-quizzes">
-            <h1>Seus Quizzes</h1>
-            <ion-icon name="add-circle"></ion-icon>
-        </div>
-        <div class="container-seus-quizzes">
-            <div class="box-quizz">
-                <img src="./imagens/quizz-publico.png" />
-                <div class="titulo-box-quizz">O quão Potterhead é você?</div>
+        <section class="desktop-1 escondido">
+            <!--em todo desktop-x colocar escondido na hora do commit -->
+            <div class="quizzes-vazios">
+                <p>Você não criou nenhum quizz ainda :(</p>
+                <button id="criar-quizz">Criar Quizz</button>
             </div>
-            <div class="box-quizz">
-                <img src="./imagens/quizz-publico.png" />
-                <div class="titulo-box-quizz">O quão Potterhead é você?</div>
+        </section>
+        <section class="desktop-2 escondido">
+            <div id="seus-quizzes">
+                <h1>Seus Quizzes</h1>
+                <ion-icon name="add-circle"></ion-icon>
             </div>
-            <div class="box-quizz">
-                <img src="./imagens/quizz-publico.png" />
-                <div class="titulo-box-quizz">O quão Potterhead é você?</div>
+            <div class="container-seus-quizzes">
+                <div class="box-quizz">
+                    <img src="./imagens/quizz-publico.png" />
+                    <div class="titulo-box-quizz">O quão Potterhead é você?</div>
+                </div>
+                <div class="box-quizz">
+                    <img src="./imagens/quizz-publico.png" />
+                    <div class="titulo-box-quizz">O quão Potterhead é você?</div>
+                </div>
+                <div class="box-quizz">
+                    <img src="./imagens/quizz-publico.png" />
+                    <div class="titulo-box-quizz">O quão Potterhead é você?</div>
+                </div>
+                <div class="box-quizz">
+                    <img src="./imagens/quizz-publico.png" />
+                    <div class="titulo-box-quizz">O quão Potterhead é você?</div>
+                </div>
             </div>
-            <div class="box-quizz">
-                <img src="./imagens/quizz-publico.png" />
-                <div class="titulo-box-quizz">O quão Potterhead é você?</div>
-            </div>
-        </div>
+        </section>
         <h1 id="quizzes-todos">Todos os Quizzes</h1>
         <div class="container-quizzes">
             <div class="box-quizz">
@@ -78,11 +84,34 @@
 
     <main class="pagina-quizz">
     </main>
+
+
     <main class="criar-quizz">
+        <section class="desktop-8 escondido">
+            <nav class="primeira-aba">
+                <div class="titulo">
+                    <h1> Comece pelo começo </h1>
+                </div>
+                <div class="caixa-perguntas">
+                    <div class="perguntas">
+                        <input placeholder="Titulo do seu quiz">
+                        <input placeholder="URl da imagem do seu quizz">
+                        <input placeholder="Quantidade de perguntas do quizz">
+                        <input placeholder="Quantidade de níveis do quizz">
+                    </div>
+                </div>
+
+                <div class="prosseguir">
+                    <h1> Prosseguir pra criar perguntas </h1>
+                </div>
+
+            </nav>
+        </section>
 
     </main>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js">
+    </script>
+
     <script src="./script.js"></script>
 </body>
 
