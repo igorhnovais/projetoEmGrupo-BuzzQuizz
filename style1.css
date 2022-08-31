@@ -100,10 +100,13 @@ header {
 }
 
 .box-quizz {
-    height: 181px;
-    width: 340px;
     position: relative;
     border-radius: 5px;
+}
+
+.box-quizz>img {
+    height: 181px;
+    width: 340px;
     object-fit: cover;
 }
 
