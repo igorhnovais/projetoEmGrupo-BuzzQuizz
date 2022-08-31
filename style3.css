@@ -9,6 +9,7 @@
 .titulo{
     display: flex;
     justify-content: center;
+    margin-top: 150px;
     margin-bottom: 25px;
     font-size: 23px;
     font-weight: 700;
@@ -123,4 +124,23 @@ h2{
 }
 .pergunta-nova > h2 {
     margin-bottom: 20px;
+}
+
+/* ----------------------- */
+
+.terceira-aba{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.caixa-perguntas-nivel{
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    width: 600px;
+    height: 256px;
+    display: flex;
+    justify-content: center;
+    padding-top: 21px;
 }
