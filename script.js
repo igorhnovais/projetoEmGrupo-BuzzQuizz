@@ -1,6 +1,16 @@
 // Variaveis globais
 let myStorage = localStorage;
 
+
+/*minhaArray.sort(comparador); // Após esta linha, a minhaArray estará embaralhada
+
+
+// Esta função pode ficar separada do código acima, onde você preferir
+function comparador() { 
+	return Math.random() - 0.5; 
+}*/
+
+
 function isUserQuiz (id){
     for (let i = 0; i < localStorage.length; i++){
         if(localStorage.getItem(localStorage.key(i)) === id)
@@ -88,13 +98,13 @@ function resultQuiz(){
     response.data.forEach(element => {
         if (isUserQuiz(element.id)){
             myQuizzes.innerHTML += `
-            <div class="box-quizz ${element.id}">
+            <div class="box-quizz ${element.id}" onclick="clickedQuiz(${element.id})">
                 <img src= ${element.image} />
                 <div class="titulo-box-quizz">${element.title}</div>
             </div>`;
         }
         allQuizzes.innerHTML += `
-        <div class="box-quizz ${element.id}">
+        <div class="box-quizz ${element.id}" onclick="clickedQuiz(${element.id})">
             <img src= ${element.image} />
             <div class="titulo-box-quizz">${element.title}</div>
         </div>`
@@ -129,7 +139,42 @@ function clickedQuiz(idQuizSelected){
 }
 
 /*  displayQuiz(response) -> mostra o quiz no layout de exibição do quiz para ser respondido    */
+function displayQuiz(response){
+    const layoutShowQuiz = document.querySelector('.desktop-4');
+    const quizReceived = response.data;
+    changeLayout('lista-quizzes','pagina-quizz');
+    layoutShowQuiz.innerHTML = `
+    <div class="titulo-quizz">
+          <p>${quizReceived.title}</p>
+          <img src=${quizReceived.image} alt="" />
+    </div>
 
+    <div class="box-pergunta">
+
+    `;
+    quizReceived.questions.forEach(element => {
+        layoutShowQuiz.innerHTML += `
+          <div style="background-color:${element.color};" class="titulo-pergunta">
+            ${element.title}
+          </div>
+          <ul class="alternativas-pergunta">
+        `;
+        element.answers.forEach(answer => {
+            layoutShowQuiz.innerHTML += `
+            <li class="alternativa ${answer.isCorrectAnswer}" onclick="selectOptionQuiz(this)">
+                <img src=${answer.image} />
+                <p>${answer.text}</p>
+            </li>
+            
+            `
+        });
+        layoutShowQuiz.innerHTML += `
+          </ul>
+        </div>
+        `
+    });
+    console.log(response.data);
+}
 
 
 /*  restartQuiz(this) -> recebe o quiz a ser reiniciado, e limpa tudo o que o usuário preencheu,
