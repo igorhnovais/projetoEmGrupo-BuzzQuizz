@@ -16,13 +16,45 @@
     <header>
         BuzzQuizz
     </header>
-    <main class="lista-quizzes escondido">
-        <div class="quizzes-vazios">
-            <p>Você não criou nenhum quizz ainda :(</p>
-            <button id="criar-quizz">Criar Quizz</button>
-        </div>
-        <h1 id="quizzes-todos">Todos os Quizzes</h1>
-        <div class="container-quizzes">
+
+    <main class="lista-quizzes">
+        <section class="desktop-1 escondido">
+            <!--em todo desktop-x colocar escondido na hora do commit -->
+            <div class="quizzes-vazios">
+                <p>Você não criou nenhum quizz ainda :(</p>
+                <button id="criar-quizz">Criar Quizz</button>
+            </div>
+        </section>
+        <section class="desktop-2 escondido">
+            <div class="seus-quizzes">
+                <h1>Seus Quizzes</h1>
+                <ion-icon name="add-circle"></ion-icon>
+            </div>
+            <div class="container-seus-quizzes">
+                <div class="box-quizz">
+                    <img src="./imagens/quizz-publico.png" />
+                    <div class="titulo-box-quizz">O quão Potterhead é você?</div>
+                </div>
+                <div class="box-quizz">
+                    <img src="./imagens/quizz-publico.png" />
+                    <div class="titulo-box-quizz">O quão Potterhead é você?</div>
+                </div>
+                <div class="box-quizz">
+                    <img src="./imagens/quizz-publico.png" />
+                    <div class="titulo-box-quizz">O quão Potterhead é você?</div>
+                </div>
+                <div class="box-quizz">
+                    <img src="./imagens/quizz-publico.png" />
+                    <div class="titulo-box-quizz">O quão Potterhead é você?</div>
+                </div>
+            </div>
+        </section>
+        <h1 class="quizzes-todos escondido">Todos os Quizzes</h1>
+        <div class="container-quizzes escondido">
+            <div class="box-quizz">
+                <img src="./imagens/quizz-publico.png" />
+                <div class="titulo-box-quizz">Acerte os personagens corretos dos Simpsons e prove seu amor!</div>
+            </div>
             <div class="box-quizz">
                 <img src="./imagens/quizz-publico.png" />
                 <div class="titulo-box-quizz">Acerte os personagens corretos dos Simpsons e prove seu amor!</div>
@@ -51,6 +83,63 @@
     </main>
 
     <main class="pagina-quizz">
+        <section class="desktop-4 escondido">
+            <div class="titulo-quizz">
+                <p>O quão Potterhead é você?</p>
+                <img src="./imagens/background-layout-1.png" alt="">
+            </div>
+            <div class="box-pergunta">
+                <div class="titulo-pergunta impar">Em qual animal Olho-Tonto Moody transfigurou Malfoy?</div>
+                <ul class="alternativas-pergunta">
+                    <li class="alternativa esfumacado" data-id="1"><img src="./imagens/image-ratinho.png">
+                        <p>Ratata</p>
+                    </li>
+                    <li class="alternativa esfumacado" data-id="2"><img src="./imagens/image-ratinho.png">
+                        <p>Ratata</p>
+                    </li>
+                    <li class="alternativa selecionado" data-id="3"><img src="./imagens/image-ratinho.png">
+                        <p>Ratata</p>
+                    </li>
+                    <li class="alternativa esfumacado" data-id="4"><img src="./imagens/image-ratinho.png">
+                        <p>Ratata</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="box-pergunta">
+                <div class="titulo-pergunta par">Em qual animal Olho-Tonto Moody transfigurou Malfoy?</div>
+                <ul class="alternativas-pergunta">
+                    <li class="alternativa" data-id="1"><img src="./imagens/image-ratinho.png">
+                        <p>Ratata</p>
+                    </li>
+                    <li class="alternativa" data-id="2"><img src="./imagens/image-ratinho.png">
+                        <p>Ratata</p>
+                    </li>
+                    <li class="alternativa" data-id="3"><img src="./imagens/image-ratinho.png">
+                        <p>Ratata</p>
+                    </li>
+                    <li class="alternativa" data-id="4"><img src="./imagens/image-ratinho.png">
+                        <p>Ratata</p>
+                    </li>
+                </ul>
+            </div>
+
+        </section>
+        <section class="desktop-7 escondido">
+            <div class="box-resultado">
+                <div class="titulo-resultado">88% de acerto: Você é praticamente um aluno de Hogwarts!</div>
+                <div class="resultado">
+                    <img src="./imagens/resultado.png" />
+                    <p>Parabéns Potterhead! Bem-vindx a Hogwarts,
+                        aproveite o loop infinito de comida e
+                        clique no botão abaixo para usar
+                        o vira-tempo e reiniciar este teste.</p>
+                </div>
+                <div class="finalizar-quizz">
+                    <button class="botao-reiniciar">Reiniciar Quizz</button>
+                    <button class="botao-home">Voltar pra Home</button>
+                </div>
+            </div>
+        </section>
     </main>
 
 
@@ -73,7 +162,7 @@
                 <div class="prosseguir">
                     <h1> Prosseguir pra criar perguntas </h1>
                 </div>
-                
+
             </nav>
         </section>
 
@@ -123,6 +212,8 @@
         </section>
 
     </main>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js">
+    </script>
 
     <script src="./script.js"></script>
 </body>

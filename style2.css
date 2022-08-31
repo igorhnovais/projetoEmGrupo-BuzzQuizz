@@ -1,0 +1,143 @@
+.titulo-quizz {
+    width: 100%;
+    margin-top: 69px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titulo-quizz>p {
+    color: white;
+    font-size: 39px;
+    position: absolute;
+}
+
+.box-pergunta {
+    width: 760px;
+    padding: 28px;
+    background-color: white;
+    margin: 70px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo-pergunta {
+    width: 100%;
+    height: 138px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 23px;
+}
+
+.impar {
+    background-color: #434CA0;
+}
+
+.par {
+    background-color: #A0438D;
+}
+
+.alternativas-pergunta {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.alternativa>p {
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 9px;
+
+}
+
+.alternativas-pergunta>img {
+    object-fit: cover;
+    width: 332px;
+    height: 175px;
+}
+
+.box-resultado {
+    width: 760px;
+    height: 600px;
+    margin: 70px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo-resultado {
+    width: 100%;
+    height: 100px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 23px;
+    background-color: #EC362D;
+    margin-bottom: 18px;
+}
+
+.resultado {
+    display: flex;
+}
+
+.resultado>img {
+    object-fit: cover;
+    width: 365px;
+    margin-right: 21px;
+}
+
+.resultado>p {
+    font-size: 19px;
+    line-height: 25px;
+    font-weight: 700;
+    color: #484848;
+}
+
+.finalizar-quizz {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 57px;
+}
+
+.finalizar-quizz>button {
+    font-size: 21px;
+    font-weight: 400;
+    width: 260px;
+    height: 52px;
+    margin-bottom: 8px;
+    border: none;
+}
+
+.botao-reiniciar {
+    border-radius: 15px;
+    color: white;
+    background-color: #EC362D;
+}
+
+.botao-home {
+    background-color: rgba(0, 0, 0, 0);
+    color: #818181;
+}
+
+.esfumacado {
+    opacity: .5;
+}
+
+.selecionado {
+    color: #009C22;
+}
+
+.escondido {
+    display: none;
+}
