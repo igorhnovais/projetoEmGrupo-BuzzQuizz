@@ -1,21 +1,78 @@
 // Variaveis globais
+let myStorage = localStorage;
 
+function isUserQuiz (id){
+    for (let i = 0; i < localStorage.length; i++){
+        if(localStorage.getItem(localStorage.key(i)) === id)
+            return true;
+    }
+    return false;
+}
 
-/*  requestQuizzes -> faz a requisição dos quizes disponíveis no servidor e chama a função initQuizzes
+/*  requestQuizzes() -> faz a requisição dos quizes disponíveis no servidor e chama a função initQuizzes
  se for bem sucedida; caso contrário, chama a função requestError */
+
+ function requestQuizzes(){
+    let promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
+    promise.then(initQuizzes);
+    promise.catch(requestError);
+ }
 
 /*  initQuizzes(response) -> carrega o layout 1 do desktop com a lista de quizes do usuário e a lista de todos
  quizes disponíveis extraído do servidor */
 
+ function initQuizzes(response){
+    // preenche a seção meus quizzes caso haja algum quiz criado pelo usuário
+    const allQuizzes = document.querySelector('.container-quizzes');
+    allQuizzes.innerHTML = '';
+    if (myStorage.length != 0){
+        const myQuizzes = document.querySelector('.container-seus-quizzes');
+        changeLayout('desktop-1', 'desktop-2');
+        myQuizzes.innerHTML = '';
+    }
+    // preenche os quizzes do servidor
+    response.data.forEach(element => {
+        if (isUserQuiz(element.id)){
+            myQuizzes.innerHTML += `
+            <div class="box-quizz ${element.id}">
+                <img src= ${element.image} />
+                <div class="titulo-box-quizz">${element.title}</div>
+            </div>`;
+        }
+        allQuizzes.innerHTML += `
+        <div class="box-quizz ${element.id}">
+            <img src= ${element.image} />
+            <div class="titulo-box-quizz">${element.title}</div>
+        </div>`
+    });
+    console.log(response.data);
+ }
+
  /* requestError(response) -> envia um alert de qual erro ocorreu durante a requisição ou post*/
 
-/*  changeLayout(toHideElement, toShowElement) -> recebe dois elementos como parâmetros: o do layout a
-ser escondido; e o do layout a ser mostrado */
+ function requestError(response){
+    alert(response.status);
+ }
 
-/*  clickedQuiz(this) -> recebe o elemento do quiz clicado no layout inicial como parâmetro, faz uma
+/*  changeLayout(toHideClass, toShowClass) -> recebe duas strings como parâmetros: um referente a 
+    classe do layout a ser escondido; e o outro a do layout a ser mostrado */
+
+function changeLayout(toHideClass, toShowClass){
+    const toHideElement = document.querySelector('.' + toHideClass);
+    const toShowElement = document.querySelector('.' + toShowClass);
+    toHideElement.classList.add('escondido');
+    toShowElement.classList.remove('escondido');
+}
+
+/*  clickedQuiz(idQuizSelected) -> recebe o elemento do quiz clicado no layout inicial como parâmetro, faz uma
 requisição de acesso ao servidor e chama a função displayQuiz se for bem sucedida; caso contrário,
 chama a função requestError  */
 
+function clickedQuiz(idQuizSelected){
+    let promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${idQuizSelected}`);
+    promise.then(displayQuiz);
+    promise.catch(requestError);
+}
 /*  displayQuiz(response) -> mostra o quiz no layout de exibição do quiz para ser respondido    */
 
 /*  restartQuiz(this) -> recebe o quiz a ser reiniciado, e limpa tudo o que o usuário preencheu,
@@ -43,3 +100,6 @@ retornando ao estado inicial de exibição do quiz  */
 // Não esquecer os atributos p/ correção automática
 
  //Seção bônus (a ver)
+
+
+ requestQuizzes();

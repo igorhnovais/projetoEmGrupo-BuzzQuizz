@@ -51,7 +51,9 @@ header {
     margin-bottom: 20px;
 }
 
-#criar-quizz {
+
+#criar-quizz-botao {
+
     color: #EC362D;
     background-color: #fafafa;
     border: #EC362D dashed 1px;
@@ -100,10 +102,13 @@ header {
 }
 
 .box-quizz {
-    height: 181px;
-    width: 340px;
     position: relative;
     border-radius: 5px;
+}
+
+.box-quizz>img {
+    height: 181px;
+    width: 340px;
     object-fit: cover;
 }
 
