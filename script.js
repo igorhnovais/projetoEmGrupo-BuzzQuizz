@@ -9,6 +9,60 @@ function isUserQuiz (id){
     return false;
 }
 
+function selectOptionQuiz (ElementClicked){
+    let jaSelecionou = false;
+    const listOptions = ElementClicked.parentElement.querySelectorAll('.alternativa');
+    listOptions.forEach(element => {
+        if(element.classList.contains('selecionado'))
+            jaSelecionou = true;
+    });
+    
+    if (!jaSelecionou){
+        ElementClicked.classList.add('selecionado');
+        listOptions.forEach(element => {
+        if(!element.classList.contains('selecionado'))
+            element.classList.add('esfumacado');
+        });
+    }
+console.log(ElementClicked.parentElement.parentElement.nextElementSibling);
+    setTimeout(function (){
+        if (ElementClicked.parentElement.parentElement.nextElementSibling == null){
+            resultQuiz();
+
+        } else{
+            ElementClicked.parentElement.parentElement.nextElementSibling.scrollIntoView();
+        }
+
+    }, 2000);
+}
+
+function resultQuiz(){
+    let hits = 0;
+    const boxResultado = document.querySelector('.box-resultado');
+    const numberOfQuestions = document.querySelectorAll('.box-pergunta').length;
+    const answers = document.querySelectorAll('.desktop-4 .true');
+    answers.forEach(element => {
+        if (element.classList.contains('selecionado'))
+            hits++;
+    });
+    boxResultado.innerHTML = `
+    <div class="titulo-resultado">${100 * Math.round(hits/numberOfQuestions)}% de acerto: Você é praticamente um aluno de Hogwarts!</div>
+    <div class="resultado">
+        <img src="./imagens/resultado.png" />
+        <p>Parabéns Potterhead! Bem-vindx a Hogwarts,
+            aproveite o loop infinito de comida e
+            clique no botão abaixo para usar
+            o vira-tempo e reiniciar este teste.</p>
+    </div>
+    <div class="finalizar-quizz">
+        <button class="botao-reiniciar">Reiniciar Quizz</button>
+        <button class="botao-home">Voltar pra Home</button>
+    </div>`
+    ;
+    boxResultado.parentElement.classList.remove('escondido');
+    boxResultado.scrollIntoView();
+}
+
 /*  requestQuizzes() -> faz a requisição dos quizes disponíveis no servidor e chama a função initQuizzes
  se for bem sucedida; caso contrário, chama a função requestError */
 
@@ -45,7 +99,7 @@ function isUserQuiz (id){
             <div class="titulo-box-quizz">${element.title}</div>
         </div>`
     });
-    console.log(response.data);
+ 
  }
 
  /* requestError(response) -> envia um alert de qual erro ocorreu durante a requisição ou post*/
@@ -73,7 +127,10 @@ function clickedQuiz(idQuizSelected){
     promise.then(displayQuiz);
     promise.catch(requestError);
 }
+
 /*  displayQuiz(response) -> mostra o quiz no layout de exibição do quiz para ser respondido    */
+
+
 
 /*  restartQuiz(this) -> recebe o quiz a ser reiniciado, e limpa tudo o que o usuário preencheu,
 retornando ao estado inicial de exibição do quiz  */
