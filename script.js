@@ -34,7 +34,7 @@ function selectOptionQuiz(ElementClicked) {
                 element.classList.add('esfumacado');
         });
     }
-
+}
 
 setTimeout(function (){
 
