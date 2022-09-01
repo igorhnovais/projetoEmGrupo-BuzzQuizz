@@ -20,7 +20,7 @@
         <section class="desktop-1">
             <div class="quizzes-vazios">
                 <p>Você não criou nenhum quizz ainda :(</p>
-                <button id="criar-quizz-botao" onclick="criarQuizzNovo(this)">Criar Quizz</button>
+                <button id="criar-quizz-botao" onclick="changeLayout('lista-quizzes','criar-quizz')">Criar Quizz</button>
             </div>
         </section>
         <section class="desktop-2 escondido">
@@ -184,7 +184,7 @@
                     </div>
                 </div>
 
-                <div class="prosseguir">
+                <div class="prosseguir" onclick="criarQuizzNovo()">
                     <h1>Prosseguir pra criar perguntas</h1>
                 </div>
             </nav>

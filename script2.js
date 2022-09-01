@@ -1,45 +1,93 @@
+let quizCriado = { 
+    title: "", 
+    image: "", 
+    questions: [{
+        title: "", 
+        color: "", 
+        answers: [{
+            text: "", 
+            image: "", 
+            isCorrectAnswer: false}]}],
+    levels: [{
+        title: "", 
+        image: "", 
+        text: "",
+        minValue: 0}]
+    
+};
+
+let numeroDePerguntas;
+let numeroDeNiveis;
+
+// função para validar a url
+function checkUrl(string) {
+    try {
+     let url = new URL(string)
+     return true;
+   } catch(err) {
+      return false;
+   }
+ } 
+
 // ao clicar no criar quizz ou no +, deve sumir a tela 1 e aparecer a tela 3.
 function criarQuizzNovo(){
 
-    const tela1 = document.querySelector('.lista-quizzes');
-    tela1.classList.add('escondido');
+    const caixaPerguntas = document.querySelector('.perguntas');
 
-    const tela3 = document.querySelector('.criar-quizz');
-    tela3.classList.remove('escondido');
+    let pergunta = caixaPerguntas.firstElementChild; 
 
-    // apareceu a tela, titulo 20-65 caracteres
-    if(titulo > 20  && titulo < 65){
-        return true;
-    };
+        if(pergunta.value.length >= 20 && pergunta.value.length <= 65){
+            quizCriado.title = pergunta.value;
+            pergunta.value = '';
+            // pegar o outro input filho
+            pergunta = pergunta.nextElementSibling;
+            if(checkUrl(pergunta.value)){
+                quizCriado.image = pergunta.value;
+                pergunta.value = '';
 
-    // url no formato url
-    if(url === url){
-        return true;
-    }
+                pergunta = pergunta.nextElementSibling;
+                if(Number(pergunta.value) >= 3){
+                    numeroDePerguntas = pergunta.value;
+                    pergunta.value = '';
 
-    // quantidade de no minimo 3 perguntas
-    if(perguntas >= 3){
-        return true;
-    }
+                    pergunta = pergunta.nextElementSibling;
 
-    // quanridade de niveis no minimo 2 no niveis
-    if (niveis >= 2){
-        return true;
-    }
+                    if(Number(pergunta.value) >=2){
+                        numeroDeNiveis = pergunta.value;
+                        pergunta.value = '';
+                    } else {
+                        pergunta.value = '';
+                        alert('invalido, verifique o numero de niveis');
+                        return;
+                    }
+                } else {
+                    pergunta.value = '';
+                    alert('invalido, verifique o numero de perguntas');
+                    return;
+                }
+            } else {
+                pergunta.value = '';
+                alert('invalido, verifique a url');
+                return;
+            }
+        } else {
+            pergunta.value = '';
+            alert('invalido, verifique o titulo (minimo 20 e maximo 65 caracteres)');
+            return;
+        }
 
-    alert('bota direito filho da puta');
-    
-     crieSuasPerguntas();
-    
+    const desktop8 = document.querySelector('.desktop-8');
+    desktop8.classList.add('escondido');
+
+    const desktop9 = document.querySelector('.desktop-9');
+    desktop9.classList.remove('escondido');  
+
+
 }
 
 // pulou de tela =>
 function crieSuasPerguntas(){
-    const desktop8 = document.querySelector('.desktop-8');
-    desktop8.classList.add('selecionado');
-
-    const desktop9 = document.querySelector('.desktop-9');
-    desktop9.classList.remove('selecionado');
+    
 
     // texto da pergunta no minimo 20 caracteres
     if(texto >= 20){
@@ -132,3 +180,15 @@ function voltarParaHome(){
 }
 
 
+const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizCriado);
+promessa.then(deuCertoTitulo);
+promessa.catch(deuErradoTitulo);
+
+// se der certo de mandar o titulo aparece aqui
+function deuCertoTitulo(){
+    console.log('deu certo mandar o titulo');
+}
+
+function deuErradoTitulo(){
+    console.log('error ao mandar o titulo');
+}

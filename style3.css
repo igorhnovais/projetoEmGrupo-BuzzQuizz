@@ -8,6 +8,7 @@
 
 .titulo{
     display: flex;
+    color: black;
     justify-content: center;
     margin-top: 150px;
     margin-bottom: 25px;
