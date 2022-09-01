@@ -1,14 +1,15 @@
 // Variaveis globais
 let myStorage = localStorage;
+let quizReceived;
+let responseQuiz;
 
 
-/*minhaArray.sort(comparador); // Após esta linha, a minhaArray estará embaralhada
 
 
 // Esta função pode ficar separada do código acima, onde você preferir
 function comparador() { 
     return Math.random() - 0.5; 
-}*/
+}
 
 
 function isUserQuiz(id) {
@@ -34,22 +35,24 @@ function selectOptionQuiz(ElementClicked) {
                 element.classList.add('esfumacado');
         });
     }
+
+
+    setTimeout(function (){
+
+        if (ElementClicked.parentElement.parentElement.nextElementSibling == null){
+            resultQuiz();
+
+        } else {
+            ElementClicked.parentElement.parentElement.nextElementSibling.scrollIntoView();
+        }
+
+    }, 2000);
 }
 
-setTimeout(function (){
-
-    if (ElementClicked.parentElement.parentElement.nextElementSibling == null){
-        resultQuiz();
-
-    } else {
-        ElementClicked.parentElement.parentElement.nextElementSibling.scrollIntoView();
-    }
-
-}, 2000);
-
-
 function resultQuiz() {
+    let hitPercentage;
     let hits = 0;
+    let levelAchieved = quizReceived.levels[0];
     const boxResultado = document.querySelector('.box-resultado');
     const numberOfQuestions = document.querySelectorAll('.box-pergunta').length;
     const answers = document.querySelectorAll('.desktop-4 .true');
@@ -57,17 +60,17 @@ function resultQuiz() {
         if (element.classList.contains('selecionado'))
             hits++;
     });
+    console.log(hits,numberOfQuestions);
+    hitPercentage = Math.round(100 * hits / numberOfQuestions);
+    quizReceived.levels.forEach(element => {levelAchieved = hitPercentage > element.minValue ? element : levelAchieved });
     boxResultado.innerHTML = `
-    <div class="titulo-resultado">${100 * Math.round(hits / numberOfQuestions)}% de acerto: Você é praticamente um aluno de Hogwarts!</div>
+    <div class="titulo-resultado">${hitPercentage}% de acerto: ${levelAchieved.title}</div>
     <div class="resultado">
-        <img src="./imagens/resultado.png" />
-        <p>Parabéns Potterhead! Bem-vindx a Hogwarts,
-            aproveite o loop infinito de comida e
-            clique no botão abaixo para usar
-            o vira-tempo e reiniciar este teste.</p>
+        <img src=${levelAchieved.image} />
+        <p>${levelAchieved.text}</p>
     </div>
     <div class="finalizar-quizz">
-        <button class="botao-reiniciar">Reiniciar Quizz</button>
+        <button class="botao-reiniciar" onclick='restartQuiz()'>Reiniciar Quizz</button>
         <button class="botao-home">Voltar pra Home</button>
     </div>`
         ;
@@ -143,9 +146,11 @@ function clickedQuiz(idQuizSelected) {
 /*  displayQuiz(response) -> mostra o quiz no layout de exibição do quiz para ser respondido    */
 
 function displayQuiz(response) {
+    responseQuiz = response;
     let layoutAnswers;
     const layoutShowQuiz = document.querySelector('.desktop-4');
-    const quizReceived = response.data;
+    quizReceived = response.data;
+    console.log(quizReceived.questions.map(element => element.answers));
     changeLayout('lista-quizzes', 'pagina-quizz');
     layoutShowQuiz.innerHTML = `
     <div class="titulo-quizz">
@@ -155,12 +160,7 @@ function displayQuiz(response) {
     `;
     quizReceived.questions.forEach(element => {
         layoutAnswers = '';
-        layoutShowQuiz.innerHTML += `
-          <div style="background-color:${element.color};" class="titulo-pergunta">
-            ${element.title}
-          </div>
-          <ul class="alternativas-pergunta">
-        `;
+        element.answers.sort(comparador);
         element.answers.forEach(answer => {
             layoutAnswers += `
             <li class="alternativa ${answer.isCorrectAnswer}" onclick="selectOptionQuiz(this)">
@@ -168,9 +168,7 @@ function displayQuiz(response) {
                 <p>${answer.text}</p>
             </li>    
             `;
-        })
-
-
+        });
         layoutShowQuiz.innerHTML += `
         <div class="box-pergunta">
             <div style="background-color:${element.color};" class="titulo-pergunta">
@@ -181,12 +179,18 @@ function displayQuiz(response) {
             </ul>
         </div>
         `;
-
-    })
+    });
+    layoutShowQuiz.firstElementChild.scrollIntoView();
 }
 
 /*  restartQuiz(this) -> recebe o quiz a ser reiniciado, e limpa tudo o que o usuário preencheu,
 retornando ao estado inicial de exibição do quiz  */
+
+function restartQuiz(){
+    const boxResultado = document.querySelector('.box-resultado');
+    boxResultado.parentElement.classList.add('escondido');
+    displayQuiz(responseQuiz);
+}
 
 /*  createQuiz() -> busca os dados preenchidos nos layouts de inscrição para a requisição de um novo quiz,
  esvaziando todos os inputs em seguida, e enviando uma requisição de inscrição para o servidor: se for 
