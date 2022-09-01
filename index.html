@@ -20,7 +20,7 @@
         <section class="desktop-1">
             <div class="quizzes-vazios">
                 <p>Você não criou nenhum quizz ainda :(</p>
-                <button id="criar-quizz-botao">Criar Quizz</button>
+                <button id="criar-quizz-botao" onclick="criarQuizzNovo(this)">Criar Quizz</button>
             </div>
         </section>
         <section class="desktop-2 escondido">
@@ -169,7 +169,7 @@
     </main>
 
     <main class="criar-quizz escondido">
-        <section class="desktop-8 escondido">
+        <section class="desktop-8">
             <nav class="primeira-aba">
                 <div class="titulo">
                     <h1>Comece pelo começo</h1>
@@ -283,11 +283,11 @@
                     </div>
                 </div>
 
-                <div class="prosseguir">
+                <div class="prosseguir" onclick="acessarOQuizz(this)">
                     <h1>Acessar quizz</h1>
                 </div>
 
-                <div class="voltar-home">
+                <div class="voltar-home" onclick="voltarParaHome(this)">
                     <h1>Voltar pra home</h1>
                 </div>
             </nav>
@@ -297,6 +297,7 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./script.js"></script>
+    <script src="./script2.js"></script>
 </body>
 
 </html>
