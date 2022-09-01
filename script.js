@@ -142,6 +142,48 @@ function clickedQuiz(idQuizSelected) {
 
 /*  displayQuiz(response) -> mostra o quiz no layout de exibição do quiz para ser respondido    */
 
+function displayQuiz(response) {
+    let layoutAnswers;
+    const layoutShowQuiz = document.querySelector('.desktop-4');
+    const quizReceived = response.data;
+    changeLayout('lista-quizzes', 'pagina-quizz');
+    layoutShowQuiz.innerHTML = `
+    <div class="titulo-quizz">
+          <p>${quizReceived.title}</p>
+          <img src=${quizReceived.image} alt="" />
+    </div>
+    `;
+    quizReceived.questions.forEach(element => {
+        layoutAnswers = '';
+        layoutShowQuiz.innerHTML += `
+          <div style="background-color:${element.color};" class="titulo-pergunta">
+            ${element.title}
+          </div>
+          <ul class="alternativas-pergunta">
+        `;
+        element.answers.forEach(answer => {
+            layoutAnswers += `
+            <li class="alternativa ${answer.isCorrectAnswer}" onclick="selectOptionQuiz(this)">
+                <img src=${answer.image} />
+                <p>${answer.text}</p>
+            </li>    
+            `;
+        })
+
+
+        layoutShowQuiz.innerHTML += `
+        <div class="box-pergunta">
+            <div style="background-color:${element.color};" class="titulo-pergunta">
+                ${element.title}
+            </div>
+            <ul class="alternativas-pergunta">
+                ${layoutAnswers}
+            </ul>
+        </div>
+        `;
+
+    })
+}
 
 /*  restartQuiz(this) -> recebe o quiz a ser reiniciado, e limpa tudo o que o usuário preencheu,
 retornando ao estado inicial de exibição do quiz  */
