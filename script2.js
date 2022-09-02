@@ -234,134 +234,121 @@ function verificaPerguntas(){
         document.querySelector('.desktop-9').classList.add('escondido');  
         document.querySelector('.desktop10').classList.remove('escondido');
     }
+
+    displayCriaNiveis();
     
 }
-
-/*function verificaPerguntas(){
-    
-                if(inputElement.value.length == 0){
-                    
-                }else{
-                    
-                    
-                    inputElement = listaInputs[i + 3];
-                    respostasPush.isCorrectAnswer = true;
-                    if(!checkUrl(inputElement.value )){
-                        alert('O formato não é uma url');
-                        inputElement.value = '';
-                        return;
-                    }else{
-                        respostasPush.image = inputElement.value;
-                        inputElement.value = '';
-                        questoesQuiz[indicePerguntas].answers.splice(0, 0, respostasPush);
-                        inputElement = listaInputs[i + 4];
-                        if(inputElement.value.length == 0){
-                            alert('O campo resposta não pode ficar vazio');
-                            inputElement.value = '';
-                            return;
-                        }else{
-                            respostasPush.text = inputElement.value;
-                            inputElement.value = '';
-                            
-                            inputElement = listaInputs[i + 5];
-                            respostasPush.isCorrectAnswer = false;
-                            if(!checkUrl(inputElement.value )){
-                                alert('O formato não é uma url');
-                                inputElement.value = '';
-                                return;
-                            }else{
-                                respostasPush.image = inputElement.value;
-                                inputElement.value = '';
-                                questoesQuiz[indicePerguntas].answers.push(respostasPush);
-                                
-                                inputElement = listaInputs[i + 6];
-                                if(inputElement.value.length != 0){
-                                    const anterior = inputElement.value;
-                                    inputElement.value = '';
-                                    
-                                    inputElement = listaInputs[i + 7];
-                                    if(checkUrl(inputElement.value)){
-                                        respostasPush.text = anterior;
-                                        respostasPush.image = inputElement.value;
-                                        respostasPush.isCorrectAnswer = false;
-                                        questoesQuiz[indicePerguntas].answers.push(respostasPush);
-                                        inputElement.value = '';
-                                        
-                                        inputElement = listaInputs[i + 8];
-                                        if(inputElement.value.length != 0){
-                                            const anterior = inputElement.value;
-                                            inputElement.value = '';
-                                            
-                                            inputElement = listaInputs[i + 9];
-                                            if(checkUrl(inputElement.value)){
-                                                respostasPush.text = anterior;
-                                                respostasPush.image = inputElement.value;
-                                                respostasPush.isCorrectAnswer = false;
-                                                questoesQuiz[indicePerguntas].answers.push(respostasPush);
-                                                inputElement.value = '';
-                                                
-                                            }
-                                        }
-
-                                    }                                
-                                }                         
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
-        i += 10;
-        indicePerguntas++;
-    }
-    console.log(questoesQuiz);
-    const desktop8 = document.querySelector('.desktop-9');
-    desktop8.classList.add('escondido');
-
-    const desktop9 = document.querySelector('.desktop10');
-    desktop9.classList.remove('escondido');
-
-}*/
 
 
 // pulou de tela =>
-function criarNivel() {
-    const desktop9 = document.querySelector('.desktop-8');
-    desktop9.classList.add('selecionado');
+function displayCriaNiveis() {
 
-    const desktop10 = document.querySelector('.desktop-9');
-    desktop10.classList.remove('selecionado');
+    const criarNiveis = document.querySelector('.terceira-aba');
+    criarNiveis.innerHTML = `
+        <div class="titulo">
+            <h1>Agora, decida os níveis</h1>
+        </div>
+        `;
 
-    // titulo do nivel minimo 10 caracteres
-    if (nivel >= 10) {
-        return true;
-    }
+        for (let i = 0; i < numeroDeNiveis; i++){
+            criarNiveis.innerHTML += `
+            <div class="pergunta-nova nivel${i+1}">
+                    <h2> Nível ${i+1} </h2>
+                    <img src="./imagens/Vector.svg" onclick="exibeMenus('.nivel${i+1}')"/>
+            </div>
+            <div class="caixa-perguntas-nivel escondido nivel${i+1}">
+                <div class="perguntas">
+                    <h2 onclick="exibeMenus('.nivel${i+1}')">Nível ${i+1}</h2>
+                    <input placeholder="Titulo do nível" />
+                    <input placeholder="% de acerto mínima" />
+                    <input placeholder="Url da imagem do nível" />
+                    <input placeholder="Descrição do nível" />
+                </div>
+            </div>
+            `;
+        }
 
-    // % de acerto minima, entre 0 e 100
-    if (minima) {
-        return true;
-    }
+        criarNiveis.innerHTML += `
+            <div class="prosseguir" onclick="verificaNiveis()">
+                <h1>Finalizar quizz</h1>
+            </div>
+         `;
 
-    // url sempre em url
-    if (url === url) {
-        return true;
-    }
+         exibeMenus('.nivel1');
 
-    //descrição do nivel minimo 30 caracteres
-    if (descrição >= 30) {
-        return true;
-    }
 
-    // obrigatorio existir pelo menos um nivel com acerto minimo de 0%
-    if (1) {
-        return true;
-    }
-
-    alert('bota direito filho da puta');
-
-    criacaoFinalizada();
 }
+
+function verificaNiveis(){
+    let listaInputs;
+    let nivelPush;
+    let sucesso = false;
+    let teveZero = false;
+
+    for(let i = 0; i < numeroDeNiveis; i++){
+        nivelPush = [{
+            title: "",
+            image: "",
+            text: "",
+            minValue: 0
+        }];
+        
+        listaInputs = document.querySelectorAll(`.nivel${i+1} input`);
+        if (listaInputs[0].value.length >= 10){
+            nivelPerguntas[i].title = listaInputs[0].value;
+            if(listaInputs[1].value >= 0 && listaInputs[1].value <= 100){
+                if(listaInputs[1].value == 0){
+                    teveZero = true;
+                }
+                nivelPerguntas[i].minValue = listaInputs[1].value;
+                if(checkUrl(listaInputs[2].value)){
+                    nivelPerguntas[i].image = listaInputs[2].value;
+                    if(listaInputs[3].value.length >= 30){
+                        nivelPerguntas[i].text = listaInputs[3].value;
+                        sucesso = true;
+                    } else {
+                        alert('quantidade de caracteres tem que ser maior que 30')
+                    }
+                } else {
+                    alert('url inserido invalido');
+                }
+            } else {
+                alert('porcentagem invalida');
+            }
+        } else {
+            alert('digitar a quantidade de caracteres correta');
+        }
+
+        nivelPerguntas.push(nivelPush);
+    }
+    
+    if(!teveZero){
+        for(let i = 0; i < numeroDeNiveis; i++){
+            nivelPerguntas.pop();
+        }
+        alert('obrigatorio existir pelo menos um nivel com acerto minimo de 0%')
+        sucesso = false;
+    }
+
+    if(sucesso)
+    {
+        let quizzPronto = { 
+            title: quizCriado.title, 
+            image: quizCriado.image, 
+            questions: questoesQuiz,
+            levels: nivelPerguntas
+        
+            };
+        
+        console.log(quizzPronto);
+
+
+        document.querySelector('.desktop10').classList.add('escondido');  
+        document.querySelector('.desktop11').classList.remove('escondido');
+    }
+
+}
+
 
 // pulou de tela =>
 // o usuario ve a tela final e pode acessar o quiz ou ir para home
