@@ -1,5 +1,4 @@
 // Variaveis globais
-let myStorage = localStorage;
 let quizReceived;
 let responseQuiz;
 
@@ -14,7 +13,7 @@ function comparador() {
 
 function isUserQuiz(id) {
     for (let i = 0; i < localStorage.length; i++) {
-        if (localStorage.getItem(localStorage.key(i)) === id)
+        if (localStorage.getItem(localStorage.key(i)) == id)
             return true;
     }
     return false;
@@ -30,9 +29,14 @@ function selectOptionQuiz(ElementClicked) {
 
     if (!jaSelecionou) {
         ElementClicked.classList.add('selecionado');
+        if(ElementClicked.classList.contains('true'))
+            ElementClicked.classList.add('verde');
+        else
+            ElementClicked.classList.add('vermelho');
         listOptions.forEach(element => {
-            if (!element.classList.contains('selecionado'))
+            if (!element.classList.contains('selecionado')){
                 element.classList.add('esfumacado');
+            }
         });
     }
 
@@ -93,11 +97,19 @@ function requestQuizzes() {
 function initQuizzes(response) {
     // preenche a seção meus quizzes caso haja algum quiz criado pelo usuário
     const allQuizzes = document.querySelector('.container-quizzes');
+    let myQuizzes = document.querySelector('.desktop-2');
     allQuizzes.innerHTML = '';
-    if (myStorage.length != 0) {
-        const myQuizzes = document.querySelector('.container-seus-quizzes');
+    if (localStorage.length != 0) {
         changeLayout('desktop-1', 'desktop-2');
-        myQuizzes.innerHTML = '';
+        myQuizzes.innerHTML = `
+        <div class="seus-quizzes">
+            <h1>Seus Quizzes</h1>
+            <ion-icon name="add-circle" onclick="changeLayout('lista-quizzes','criar-quizz')"></ion-icon>
+        </div>
+        <div class="container-seus-quizzes">   
+        </div>
+        `;
+        myQuizzes = document.querySelector('.container-seus-quizzes');
     }
     // preenche os quizzes do servidor
     response.data.forEach(element => {
@@ -180,7 +192,7 @@ function displayQuiz(response) {
         </div>
         `;
     });
-    layoutShowQuiz.firstElementChild.scrollIntoView();
+    layoutShowQuiz.firstElementChild.nextElementSibling.scrollIntoView();
 }
 
 /*  restartQuiz(this) -> recebe o quiz a ser reiniciado, e limpa tudo o que o usuário preencheu,
@@ -562,7 +574,6 @@ function verificaNiveis(){
         let quizzPronto = Object.assign({}, quizCriado, objetoQuestao,objetoNiveis);
 
        
-        console.log(quizzPronto);
 
         const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzPronto);
         promessa.then(resultadoQuizz);
@@ -598,7 +609,30 @@ console.log( Object.assign({}, quizCriado, objetoQuestao,objetoNiveis)); */
 // pulou de tela =>
 // o usuario ve a tela final e pode acessar o quiz ou ir para home
 function resultadoQuizz(response){
+    const menuSucesso = document.querySelector('.quarta-aba');
+    const meuQuiz = response.data;
     console.log(response);
+    localStorage.setItem(`Quiz id ${meuQuiz.id}`,meuQuiz.id);
+    changeLayout('desktop10','desktop11');
+    menuSucesso.innerHTML = `
+    <div class="titulo">
+        <h1>Seu quizz está pronto!</h1>
+    </div>
+    <div class="box-quizz" onclick='clickedQuiz(${meuQuiz.id})'>
+        <img src="${meuQuiz.image}"/>
+        <div class="titulo-box-quizz">
+            ${meuQuiz.title}
+        </div>
+    </div>
+
+    <div class="prosseguir" onclick="changeLayout('criar-quizz','lista-quizzes'); clickedQuiz(${meuQuiz.id})">
+        <h1>Acessar quizz</h1>
+    </div>
+
+    <div class="voltar-home" onclick="changeLayout('criar-quizz','lista-quizzes'); requestQuizzes();">
+        <h1>Voltar pra home</h1>
+    </div>
+    `;   
 }
 
 function erroRequisicao() {
@@ -606,7 +640,7 @@ function erroRequisicao() {
 }
 
 
-
+console.log(localStorage);
 
 
 // const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizCriado);
