@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
+* {
+    box-sizing: border-box;
+}
 
 body {
     font-family: 'Roboto', sans-serif;
     position: relative;
-    box-sizing: border-box;
+
+    background-color: #fafafa;
 }
 
 header {
@@ -38,6 +42,7 @@ header {
     align-items: center;
     justify-content: center;
     margin-bottom: 77px;
+    background-color: #fafafa;
 }
 
 .quizzes-vazios>p {
@@ -106,6 +111,9 @@ header {
     border-radius: 5px;
     height: 181px;
     width: 340px;
+    font-size: 19px;
+    font-weight: 400;
+    word-break: break-all;
 }
 
 .box-quizz>img {
