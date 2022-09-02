@@ -71,7 +71,7 @@ function resultQuiz() {
     </div>
     <div class="finalizar-quizz">
         <button class="botao-reiniciar" onclick='restartQuiz()'>Reiniciar Quizz</button>
-        <button class="botao-home">Voltar pra Home</button>
+        <button class="botao-home" onclick="changeLayout('pagina-quizz','lista-quizzes')">Voltar pra Home</button>
     </div>`
         ;
     boxResultado.parentElement.classList.remove('escondido');

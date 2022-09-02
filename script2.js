@@ -1,23 +1,26 @@
 let quizCriado = {
     title: "",
     image: "",
-    questions: [{
-        title: "",
-        color: "",
-        answers: [{
-            text: "",
-            image: "",
-            isCorrectAnswer: false
-        }]
-    }],
-    levels: [{
-        title: "",
-        image: "",
-        text: "",
-        minValue: 0
-    }]
-
 };
+
+let questoesQuiz = [{
+    title: "",
+    color: "",
+    answers: [{
+        text: "",
+        image: "",
+        isCorrectAnswer: false
+    }]
+}];
+
+let nivelPerguntas = [{
+    title: "",
+    image: "",
+    text: "",
+    minValue: 0
+}];
+
+
 
 let numeroDePerguntas;
 let numeroDeNiveis;
@@ -101,13 +104,13 @@ function displayCriarPerguntas() {
 
     for (let i = 1; i <= numeroDePerguntas; i++) {
         segundaAba.innerHTML += ` 
-        <div class="pergunta-nova pergunta${i}" onclick="exibeMenus('.pergunta${i}')">
+        <div class="pergunta-nova pergunta${i}">
             <h2>Pergunta ${i}</h2>
-            <img src="./imagens/Vector.svg" />
+            <img src="./imagens/Vector.svg" onclick="exibeMenus('.pergunta${i}')"/>
         </div>
-        <div class="caixa-crie-perguntas escondido pergunta${i}" onclick="exibeMenus('.pergunta${i}')">
+        <div class="caixa-crie-perguntas escondido pergunta${i}">
             <div class="crie-perguntas">
-                <h2>Pergunta ${i}</h2>
+                <h2 onclick="exibeMenus('.pergunta${i}')">Pergunta ${i}</h2>
                 <input placeholder="Texto da pergunta" />
                 <input placeholder="Cor de fundo da pergunta" />
 
@@ -132,6 +135,11 @@ function displayCriarPerguntas() {
          </div> 
     `
     }
+    segundaAba.innerHTML += `
+    <div class="prosseguir" onclick="verificaPerguntas()">
+        <h1>Prosseguir pra criar níveis</h1>
+    </div>`;
+    exibeMenus('.pergunta1');
 }
 
 
@@ -139,10 +147,182 @@ function exibeMenus(classeRecebida) {
     const perguntaExibida = document.querySelectorAll(classeRecebida);
     perguntaExibida[0].classList.toggle("escondido");
     perguntaExibida[1].classList.toggle("escondido");
-    const perguntaRetraida = document.querySelector(".pergunta-nova", ".escondido");
-    perguntaRetraida.classList.remove("escondido");
-    perguntaRetraida.nextElementSibling.classList.add("escondido");
 }
+
+function verificaPerguntas(){
+    let listaInputs;
+    let questaoPush;
+    let sucesso = false;
+    let respostaPush;
+
+    for(let i = 0; i < numeroDePerguntas; i++){
+        questaoPush = {
+            title: "",
+            color: "",
+            answers: [{
+                text: "",
+                image: "",
+                isCorrectAnswer: false
+            }]
+        };
+        respostaPush = {
+            text: "",
+            image: "",
+            isCorrectAnswer: false
+        };
+        listaInputs = document.querySelectorAll(`.pergunta${i+1} input`);
+        if(listaInputs[0].value.length >= 20){
+            questoesQuiz[i].title = listaInputs[0].value;                  
+            if(listaInputs[1].value.match('#[0-9A-Fa-f]+') && listaInputs[1].value.length == 7){
+                questoesQuiz[i].color = listaInputs[1].value;                            
+                if(listaInputs[2].value.length != 0){
+                    questoesQuiz[i].answers[0].text = listaInputs[2].value;
+                    if(checkUrl(listaInputs[3].value)){
+                        questoesQuiz[i].answers[0].image = listaInputs[3].value;
+                        questoesQuiz[i].answers[0].isCorrectAnswer = true;
+                        questoesQuiz[i].answers.push(respostaPush);
+                        if(listaInputs[4].value.length != 0){
+                            questoesQuiz[i].answers[1].text = listaInputs[4].value;
+                            if(checkUrl(listaInputs[5].value)){
+                                questoesQuiz[i].answers[1].image = listaInputs[5].value;
+                                questoesQuiz[i].answers[1].isCorrectAnswer = false;
+                                sucesso = true;
+                                if(listaInputs[6].value.length != 0){
+                                    if(checkUrl(listaInputs[7].value)){
+                                        questoesQuiz[i].answers.push(respostaPush);
+                                        questoesQuiz[i].answers[2].text = listaInputs[6].value;
+                                        questoesQuiz[i].answers[2].image = listaInputs[7].value;
+                                        questoesQuiz[i].answers[2].isCorrectAnswer = false;
+                                        if(listaInputs[8].value.length != 0){
+                                            if(checkUrl(listaInputs[9].value)){
+                                                questoesQuiz[i].answers.push(respostaPush);
+                                                questoesQuiz[i].answers[3].text = listaInputs[8].value;
+                                                questoesQuiz[i].answers[3].image = listaInputs[9].value;
+                                                questoesQuiz[i].answers[3].isCorrectAnswer = false;                                         
+                                            }
+                                        }
+                                    }
+                                }
+                            } else{
+                                alert('O formato não é uma url');
+                            }
+                        } else{
+                            alert('O campo resposta não pode ficar vazio');
+                        }
+                    } else{
+                        alert('O formato não é uma url');                  
+                    }
+                } else{
+                    alert('O campo resposta não pode ficar vazio');
+                }
+                
+            } else{
+                alert('Formato de cor inválido');
+            }
+                
+        }else{
+            alert('texto invalido. Mínimo de 20 caracteres');
+        }
+        questoesQuiz.push(questaoPush);
+        listaInputs.forEach(element => element.value = '');
+
+    }
+    questoesQuiz.pop();
+    console.log(questoesQuiz);
+    if(sucesso)
+    {
+        document.querySelector('.desktop-9').classList.add('escondido');  
+        document.querySelector('.desktop10').classList.remove('escondido');
+    }
+    
+}
+
+/*function verificaPerguntas(){
+    
+                if(inputElement.value.length == 0){
+                    
+                }else{
+                    
+                    
+                    inputElement = listaInputs[i + 3];
+                    respostasPush.isCorrectAnswer = true;
+                    if(!checkUrl(inputElement.value )){
+                        alert('O formato não é uma url');
+                        inputElement.value = '';
+                        return;
+                    }else{
+                        respostasPush.image = inputElement.value;
+                        inputElement.value = '';
+                        questoesQuiz[indicePerguntas].answers.splice(0, 0, respostasPush);
+                        inputElement = listaInputs[i + 4];
+                        if(inputElement.value.length == 0){
+                            alert('O campo resposta não pode ficar vazio');
+                            inputElement.value = '';
+                            return;
+                        }else{
+                            respostasPush.text = inputElement.value;
+                            inputElement.value = '';
+                            
+                            inputElement = listaInputs[i + 5];
+                            respostasPush.isCorrectAnswer = false;
+                            if(!checkUrl(inputElement.value )){
+                                alert('O formato não é uma url');
+                                inputElement.value = '';
+                                return;
+                            }else{
+                                respostasPush.image = inputElement.value;
+                                inputElement.value = '';
+                                questoesQuiz[indicePerguntas].answers.push(respostasPush);
+                                
+                                inputElement = listaInputs[i + 6];
+                                if(inputElement.value.length != 0){
+                                    const anterior = inputElement.value;
+                                    inputElement.value = '';
+                                    
+                                    inputElement = listaInputs[i + 7];
+                                    if(checkUrl(inputElement.value)){
+                                        respostasPush.text = anterior;
+                                        respostasPush.image = inputElement.value;
+                                        respostasPush.isCorrectAnswer = false;
+                                        questoesQuiz[indicePerguntas].answers.push(respostasPush);
+                                        inputElement.value = '';
+                                        
+                                        inputElement = listaInputs[i + 8];
+                                        if(inputElement.value.length != 0){
+                                            const anterior = inputElement.value;
+                                            inputElement.value = '';
+                                            
+                                            inputElement = listaInputs[i + 9];
+                                            if(checkUrl(inputElement.value)){
+                                                respostasPush.text = anterior;
+                                                respostasPush.image = inputElement.value;
+                                                respostasPush.isCorrectAnswer = false;
+                                                questoesQuiz[indicePerguntas].answers.push(respostasPush);
+                                                inputElement.value = '';
+                                                
+                                            }
+                                        }
+
+                                    }                                
+                                }                         
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        i += 10;
+        indicePerguntas++;
+    }
+    console.log(questoesQuiz);
+    const desktop8 = document.querySelector('.desktop-9');
+    desktop8.classList.add('escondido');
+
+    const desktop9 = document.querySelector('.desktop10');
+    desktop9.classList.remove('escondido');
+
+}*/
 
 
 // pulou de tela =>
