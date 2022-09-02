@@ -509,12 +509,12 @@ function verificaNiveis(){
     let teveZero = false;
 
     for(let i = 0; i < numeroDeNiveis; i++){
-        nivelPush = [{
+        nivelPush = {
             title: "",
             image: "",
             text: "",
             minValue: 0
-        }];
+        };
         
         listaInputs = document.querySelectorAll(`.nivel${i+1} input`);
         if (listaInputs[0].value.length >= 10){
@@ -553,10 +553,13 @@ function verificaNiveis(){
         sucesso = false;
     }
 
+    nivelPerguntas.pop();
+
     if(sucesso)
     {
-        let quizzPronto = {...quizCriado, ...questoesQuiz, ...nivelPerguntas};
-        
+        let objetoQuestao = {questions:questoesQuiz};
+        let objetoNiveis = {levels:nivelPerguntas};
+        let quizzPronto = Object.assign({}, quizCriado, objetoQuestao,objetoNiveis);
 
        
         console.log(quizzPronto);
@@ -564,12 +567,12 @@ function verificaNiveis(){
         const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzPronto);
         promessa.then(resultadoQuizz);
         promessa.catch(erroRequisicao);
-
-        console.log(quizzPronto);
     }
 
     
 }
+/* let objetoQuestao = {questions:questoesQuiz};
+let objetoNiveis = {levels:nivelPerguntas};
 let quizzPronto = { 
     title:  "huahau hauhauh uah auah auhauah aa a ", 
     image: "https://trello.com/b/uHmRqbTf/projet%C3%A3o-buzzquizz", 
@@ -591,11 +594,11 @@ let quizzPronto = {
 let objetoQuestao = {questions:questoesQuiz};
 let objetoNiveis = {levels:nivelPerguntas};
 
-console.log( quizzPronto);
+console.log( Object.assign({}, quizCriado, objetoQuestao,objetoNiveis)); */
 // pulou de tela =>
 // o usuario ve a tela final e pode acessar o quiz ou ir para home
-function resultadoQuizz(){
-    console.log('deu certo o envio')
+function resultadoQuizz(response){
+    console.log(response);
 }
 
 function erroRequisicao() {
