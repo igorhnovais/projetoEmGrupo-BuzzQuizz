@@ -605,7 +605,7 @@ function erroRequisicao() {
 
 
 
-
+console.log('oi');
 // const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizCriado);
 // promessa.then(deuCertoTitulo);
 // promessa.catch(deuErradoTitulo);
