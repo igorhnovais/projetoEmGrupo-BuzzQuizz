@@ -104,11 +104,14 @@ header {
 .box-quizz {
     position: relative;
     border-radius: 5px;
+    height: 181px;
+    width: 340px;
 }
 
 .box-quizz>img {
     height: 181px;
     width: 340px;
+    border-radius: 5px;
     object-fit: cover;
 }
 
@@ -116,10 +119,14 @@ header {
     position: absolute;
     font-size: 19px;
     font-weight: 400;
-    bottom: 20px;
-    left: 20px;
+    width: fit-content;
+    min-width: 300px;
+    bottom: 0px;
+    left: 0px;
+    padding: 20px;
     color: white;
-    /* background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.1%, #000000 100%); */
+    border-radius: 5px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.1%, #000000 100%);
 }
 
 .container-seus-quizzes {
@@ -134,4 +141,22 @@ header {
 
 .escondido {
     display: none;
+}
+
+@media only screen and (max-width: 1100px) {
+    .lista-quizzes {
+        width: 750px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .lista-quizzes {
+        width: 95%;
+    }
+
+    .container-quizzes,
+    .container-seus-quizzes {
+        flex-direction: column;
+        align-items: center;
+    }
 }
