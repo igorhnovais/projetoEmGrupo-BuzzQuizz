@@ -28,8 +28,8 @@ let nivelPerguntas = [{
 
 
 // --------------------------------------Início funções auxiliares pro nosso código------------------
-function comparador() { 
-    return Math.random() - 0.5; 
+function comparador() {
+    return Math.random() - 0.5;
 }
 
 // Retorna true se o id do quiz está no localStorage; false caso contrário
@@ -63,8 +63,8 @@ function changeLayout(toHideClass, toShowClass) {
 }
 
 // Retira todos os elementos inseridos no array deixando somente o primeiro
-function resetaArray(arrayRecebido){
-    while(arrayRecebido.length > 0){
+function resetaArray(arrayRecebido) {
+    while (arrayRecebido.length > 0) {
         arrayRecebido.pop();
     }
 }
@@ -81,8 +81,8 @@ function requestError(response) {
 
 /*  initQuizzes(response) -> carrega o layout 1 do desktop com a lista de quizes do usuário e a lista de todos
  quizes disponíveis extraído do servidor */
-function initQuizzes(response) {   
-//  preenche a seção meus quizzes caso haja algum quiz criado pelo usuário   
+function initQuizzes(response) {
+    //  preenche a seção meus quizzes caso haja algum quiz criado pelo usuário   
     const allQuizzes = document.querySelector('.container-quizzes');
     let myQuizzes = document.querySelector('.desktop-2');
     allQuizzes.innerHTML = '';
@@ -95,7 +95,7 @@ function initQuizzes(response) {
         `;
     myQuizzes = document.querySelector('.container-seus-quizzes');
 
-//  preenche os quizzes do servidor
+    //  preenche os quizzes do servidor
     response.data.forEach(element => {
         if (isUserQuiz(element.id)) {
             myQuizzes.innerHTML += `
@@ -110,7 +110,7 @@ function initQuizzes(response) {
             <div class="titulo-box-quizz">${element.title}</div>
         </div>`
     });
-    if(myQuizzes.innerHTML !== ''){
+    if (myQuizzes.innerHTML !== '') {
         changeLayout('desktop-1', 'desktop-2');
     }
 }
@@ -131,7 +131,7 @@ function displayQuiz(response) {
     let layoutAnswers;
     const layoutShowQuiz = document.querySelector('.desktop-4');
     quizReceived = response.data;
-    
+
     changeLayout('lista-quizzes', 'pagina-quizz');
     layoutShowQuiz.innerHTML = `
     <div class="titulo-quizz">
@@ -161,7 +161,7 @@ function displayQuiz(response) {
         </div>
         `;
     });
-    layoutShowQuiz.firstElementChild.nextElementSibling.scrollIntoView();
+    layoutShowQuiz.firstElementChild.nextElementSibling.scrollIntoView({ behavior: "smooth" });
 }
 
 /*  clickedQuiz(idQuizSelected) -> recebe o elemento do quiz clicado no layout inicial como parâmetro, faz uma
@@ -186,28 +186,28 @@ function selectOptionQuiz(ElementClicked) {
 
     if (!jaSelecionou) {
         ElementClicked.classList.add('selecionado');
-        if(ElementClicked.classList.contains('true'))
+        if (ElementClicked.classList.contains('true'))
             ElementClicked.classList.add('verde');
         else
             ElementClicked.classList.add('vermelho');
         listOptions.forEach(element => {
-            if (!element.classList.contains('selecionado')){
+            if (!element.classList.contains('selecionado')) {
                 element.classList.add('esfumacado');
             }
         });
     }
 
 
-    setTimeout(function (){
+    setTimeout(function () {
 
-        if (ElementClicked.parentElement.parentElement.nextElementSibling == null){
+        if (ElementClicked.parentElement.parentElement.nextElementSibling == null) {
             resultQuiz();
 
         } else {
-            ElementClicked.parentElement.parentElement.nextElementSibling.scrollIntoView();
+            ElementClicked.parentElement.parentElement.nextElementSibling.scrollIntoView({ behavior: "smooth" });
         }
 
-    }, 2000);
+    }, 500);
 }
 
 //  Calcula o resultado do quiz criado
@@ -222,9 +222,9 @@ function resultQuiz() {
         if (element.classList.contains('selecionado'))
             hits++;
     });
-    
+
     hitPercentage = Math.round(100 * hits / numberOfQuestions);
-    quizReceived.levels.forEach(element => {levelAchieved = hitPercentage > element.minValue ? element : levelAchieved });
+    quizReceived.levels.forEach(element => { levelAchieved = hitPercentage > element.minValue ? element : levelAchieved });
     boxResultado.innerHTML = `
     <div class="titulo-resultado">${hitPercentage}% de acerto: ${levelAchieved.title}</div>
     <div class="resultado">
@@ -237,13 +237,13 @@ function resultQuiz() {
     </div>`
         ;
     boxResultado.parentElement.classList.remove('escondido');
-    boxResultado.scrollIntoView();
+    boxResultado.scrollIntoView({ behavior: "smooth" });
 }
 
 /*  restartQuiz(this) -> recebe o quiz a ser reiniciado, e limpa tudo o que o usuário preencheu,
 retornando ao estado inicial de exibição do quiz  */
 
-function restartQuiz(){
+function restartQuiz() {
     const boxResultado = document.querySelector('.box-resultado');
     boxResultado.parentElement.classList.add('escondido');
     displayQuiz(responseQuiz);
@@ -274,7 +274,7 @@ function criarQuizzNovo() {
             alert('invalido, verifique a url');
             return;
         }
-        
+
     } else {
         alert('invalido, verifique o titulo (minimo 20 e maximo 65 caracteres)');
         return;
@@ -343,11 +343,16 @@ function displayCriarPerguntas() {
 }
 
 
-function verificaPerguntas(){
+function verificaPerguntas() {
     let listaInputs;
     resetaArray(questoesQuiz);
+<<<<<<< HEAD
     for(let i = 0; i < numeroDePerguntas; i++){
         let questaoPush = {
+=======
+    for (let i = 0; i < numeroDePerguntas; i++) {
+        questaoPush = {
+>>>>>>> ac545475401705863ecb228af19cacb68d5559a2
             title: "",
             color: "",
             answers: [{
@@ -356,22 +361,37 @@ function verificaPerguntas(){
                 isCorrectAnswer: false
             }]
         };
+<<<<<<< HEAD
         listaInputs = document.querySelectorAll(`.pergunta${i+1} input`);
+=======
+        respostaPush = {
+            text: "",
+            image: "",
+            isCorrectAnswer: false
+        };
+        listaInputs = document.querySelectorAll(`.pergunta${i + 1} input`);
+>>>>>>> ac545475401705863ecb228af19cacb68d5559a2
         questoesQuiz.push(questaoPush);
-        if(listaInputs[0].value.length >= 20){
-            questoesQuiz[i].title = listaInputs[0].value;                  
-            if(listaInputs[1].value.match('#[0-9A-Fa-f]+') && listaInputs[1].value.length == 7){
-                questoesQuiz[i].color = listaInputs[1].value;                            
-                if(listaInputs[2].value.length != 0){
+        if (listaInputs[0].value.length >= 20) {
+            questoesQuiz[i].title = listaInputs[0].value;
+            if (listaInputs[1].value.match('#[0-9A-Fa-f]+') && listaInputs[1].value.length == 7) {
+                questoesQuiz[i].color = listaInputs[1].value;
+                if (listaInputs[2].value.length != 0) {
                     questoesQuiz[i].answers[0].text = listaInputs[2].value;
-                    if(checkUrl(listaInputs[3].value)){
+                    if (checkUrl(listaInputs[3].value)) {
                         questoesQuiz[i].answers[0].image = listaInputs[3].value;
                         questoesQuiz[i].answers[0].isCorrectAnswer = true;
+<<<<<<< HEAD
                         if(listaInputs[4].value.length != 0){
                             questoesQuiz[i].answers.push({text: "", image: "",isCorrectAnswer: false});
+=======
+                        if (listaInputs[4].value.length != 0) {
+                            questoesQuiz[i].answers.push(respostaPush);
+>>>>>>> ac545475401705863ecb228af19cacb68d5559a2
                             questoesQuiz[i].answers[1].text = listaInputs[4].value;
-                            if(checkUrl(listaInputs[5].value)){
+                            if (checkUrl(listaInputs[5].value)) {
                                 questoesQuiz[i].answers[1].image = listaInputs[5].value;
+<<<<<<< HEAD
                                 if(listaInputs[6].value.length != 0){
                                     if(checkUrl(listaInputs[7].value)){
                                         questoesQuiz[i].answers.push({text: "", image: "",isCorrectAnswer: false});
@@ -382,38 +402,53 @@ function verificaPerguntas(){
                                                 questoesQuiz[i].answers.push({text: "", image: "",isCorrectAnswer: false});
                                                 questoesQuiz[i].answers[3].text = listaInputs[8].value;
                                                 questoesQuiz[i].answers[3].image = listaInputs[9].value;                                    
+=======
+                                questoesQuiz[i].answers[1].isCorrectAnswer = false;
+                                if (listaInputs[6].value.length != 0) {
+                                    if (checkUrl(listaInputs[7].value)) {
+                                        questoesQuiz[i].answers.push(respostaPush);
+                                        questoesQuiz[i].answers[2].text = listaInputs[6].value;
+                                        questoesQuiz[i].answers[2].image = listaInputs[7].value;
+                                        questoesQuiz[i].answers[2].isCorrectAnswer = false;
+                                        if (listaInputs[8].value.length != 0) {
+                                            if (checkUrl(listaInputs[9].value)) {
+                                                questoesQuiz[i].answers.push(respostaPush);
+                                                questoesQuiz[i].answers[3].text = listaInputs[8].value;
+                                                questoesQuiz[i].answers[3].image = listaInputs[9].value;
+                                                questoesQuiz[i].answers[3].isCorrectAnswer = false;
+>>>>>>> ac545475401705863ecb228af19cacb68d5559a2
                                             }
                                         }
                                     }
                                 }
-                            } else{
+                            } else {
                                 alert('O formato não é uma url');
                                 resetaArray(questoesQuiz);
                                 return;
                             }
-                        } else{
+                        } else {
                             alert('O campo resposta não pode ficar vazio');
                             resetaArray(questoesQuiz);
                             return;
                         }
-                    } else{
+                    } else {
                         alert('O formato não é uma url');
                         resetaArray(questoesQuiz);
-                        return;                  
+                        return;
                     }
-                } else{
+                } else {
                     alert('O campo resposta não pode ficar vazio');
                     resetaArray(questoesQuiz);
                     return;
                 }
-                
-            } else{
+
+            } else {
                 alert('Formato de cor inválido');
                 resetaArray(questoesQuiz);
                 return;
             }
-                
-        }else{
+
+        } else {
             alert('texto invalido. Mínimo de 20 caracteres');
             resetaArray(questoesQuiz);
             return;
@@ -434,15 +469,15 @@ function displayCriaNiveis() {
         </div>
         `;
 
-        for (let i = 0; i < numeroDeNiveis; i++){
-            criarNiveis.innerHTML += `
-            <div class="pergunta-nova nivel${i+1}">
-                    <h2> Nível ${i+1} </h2>
-                    <img src="./imagens/Vector.svg" onclick="exibeMenus('.nivel${i+1}')"/>
+    for (let i = 0; i < numeroDeNiveis; i++) {
+        criarNiveis.innerHTML += `
+            <div class="pergunta-nova nivel${i + 1}">
+                    <h2> Nível ${i + 1} </h2>
+                    <img src="./imagens/Vector.svg" onclick="exibeMenus('.nivel${i + 1}')"/>
             </div>
-            <div class="caixa-perguntas-nivel escondido nivel${i+1}">
+            <div class="caixa-perguntas-nivel escondido nivel${i + 1}">
                 <div class="perguntas">
-                    <h2 onclick="exibeMenus('.nivel${i+1}')">Nível ${i+1}</h2>
+                    <h2 onclick="exibeMenus('.nivel${i + 1}')">Nível ${i + 1}</h2>
                     <input placeholder="Titulo do nível" />
                     <input placeholder="% de acerto mínima" />
                     <input placeholder="Url da imagem do nível" />
@@ -450,26 +485,26 @@ function displayCriaNiveis() {
                 </div>
             </div>
             `;
-        }
+    }
 
-        criarNiveis.innerHTML += `
+    criarNiveis.innerHTML += `
             <div class="prosseguir" onclick="verificaNiveis()">
                 <h1>Finalizar quizz</h1>
             </div>
          `;
 
-         exibeMenus('.nivel1');
+    exibeMenus('.nivel1');
 
 
 }
 
-function verificaNiveis(){
+function verificaNiveis() {
     let listaInputs;
     let nivelPush;
     let teveZero = false;
     resetaArray(nivelPerguntas);
 
-    for(let i = 0; i < numeroDeNiveis; i++){
+    for (let i = 0; i < numeroDeNiveis; i++) {
         nivelPush = {
             title: "",
             image: "",
@@ -477,17 +512,17 @@ function verificaNiveis(){
             minValue: 0
         };
         nivelPerguntas.push(nivelPush);
-        listaInputs = document.querySelectorAll(`.nivel${i+1} input`);
-        if (listaInputs[0].value.length >= 10){
+        listaInputs = document.querySelectorAll(`.nivel${i + 1} input`);
+        if (listaInputs[0].value.length >= 10) {
             nivelPerguntas[i].title = listaInputs[0].value;
-            if(listaInputs[1].value >= 0 && listaInputs[1].value <= 100 && listaInputs[1].value !== ''){
-                if(listaInputs[1].value == 0){
+            if (listaInputs[1].value >= 0 && listaInputs[1].value <= 100 && listaInputs[1].value !== '') {
+                if (listaInputs[1].value == 0) {
                     teveZero = true;
                 }
                 nivelPerguntas[i].minValue = listaInputs[1].value;
-                if(checkUrl(listaInputs[2].value)){
+                if (checkUrl(listaInputs[2].value)) {
                     nivelPerguntas[i].image = listaInputs[2].value;
-                    if(listaInputs[3].value.length >= 30){
+                    if (listaInputs[3].value.length >= 30) {
                         nivelPerguntas[i].text = listaInputs[3].value;
                         sucesso = true;
                     } else {
@@ -512,30 +547,43 @@ function verificaNiveis(){
         }
     }
 
+<<<<<<< HEAD
     if(teveZero)
     {
         let objetoQuestao = {questions:questoesQuiz};
         let objetoNiveis = {levels:nivelPerguntas};
         let quizzPronto = Object.assign({}, quizCriado, objetoQuestao,objetoNiveis);
+=======
+    if (teveZero) {
+        console.log(questoesQuiz);
+        let objetoQuestao = { questions: questoesQuiz };
+        let objetoNiveis = { levels: nivelPerguntas };
+        let quizzPronto = Object.assign({}, quizCriado, objetoQuestao, objetoNiveis);
+>>>>>>> ac545475401705863ecb228af19cacb68d5559a2
         const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzPronto);
         promessa.then(resultadoCriarQuiz);
         promessa.catch(requestError);
         console.log(quizzPronto);
-    } else{
-            alert('obrigatorio existir pelo menos um nivel com acerto minimo de 0%');
-            resetaArray(nivelPerguntas);
-        }
-   
+    } else {
+        alert('obrigatorio existir pelo menos um nivel com acerto minimo de 0%');
+        resetaArray(nivelPerguntas);
+    }
+
 }
 
 // o usuario ve a tela final e pode acessar o quiz ou ir para home
-function resultadoCriarQuiz(response){
+function resultadoCriarQuiz(response) {
     const menuSucesso = document.querySelector('.quarta-aba');
     const meuQuiz = response.data;
     console.log(response);
+<<<<<<< HEAD
     if(response.status == '201'){
         localStorage.setItem(`Quiz id ${meuQuiz.id}`,meuQuiz.id);
     changeLayout('desktop10','desktop11');
+=======
+    localStorage.setItem(`Quiz id ${meuQuiz.id}`, meuQuiz.id);
+    changeLayout('desktop10', 'desktop11');
+>>>>>>> ac545475401705863ecb228af19cacb68d5559a2
     menuSucesso.innerHTML = `
     <div class="titulo">
         <h1>Seu quizz está pronto!</h1>
@@ -554,13 +602,17 @@ function resultadoCriarQuiz(response){
     <div class="voltar-home" onclick="changeLayout('criar-quizz','lista-quizzes'); requestQuizzes();">
         <h1>Voltar pra home</h1>
     </div>
+<<<<<<< HEAD
     `;   
     } else{
         alert('O quiz não foi aceito. Verifique se preencheu todos os dados corretamente e tente novamente');
     }
+=======
+    `;
+>>>>>>> ac545475401705863ecb228af19cacb68d5559a2
 }
 
- // Não esquecer os atributos p/ correção automática
+// Não esquecer os atributos p/ correção automática
 requestQuizzes();
 
 //  --------------------------Fim funções essenciais do código---------------------------------------
