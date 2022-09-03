@@ -91,8 +91,7 @@ function initQuizzes(response) {
             <h1>Seus Quizzes</h1>
             <ion-icon name="add-circle" onclick="changeLayout('lista-quizzes','criar-quizz')"></ion-icon>
         </div>
-        <div class="container-seus-quizzes">   
-        </div>
+        <div class="container-seus-quizzes"></div>
         `;
     myQuizzes = document.querySelector('.container-seus-quizzes');
 
@@ -346,11 +345,9 @@ function displayCriarPerguntas() {
 
 function verificaPerguntas() {
     let listaInputs;
-    let questaoPush;
-    let respostaPush;
     resetaArray(questoesQuiz);
-    for (let i = 0; i < numeroDePerguntas; i++) {
-        questaoPush = {
+    for(let i = 0; i < numeroDePerguntas; i++){
+        let questaoPush = {
             title: "",
             color: "",
             answers: [{
@@ -359,12 +356,7 @@ function verificaPerguntas() {
                 isCorrectAnswer: false
             }]
         };
-        respostaPush = {
-            text: "",
-            image: "",
-            isCorrectAnswer: false
-        };
-        listaInputs = document.querySelectorAll(`.pergunta${i + 1} input`);
+        listaInputs = document.querySelectorAll(`.pergunta${i+1} input`);
         questoesQuiz.push(questaoPush);
         if (listaInputs[0].value.length >= 20) {
             questoesQuiz[i].title = listaInputs[0].value;
@@ -375,24 +367,21 @@ function verificaPerguntas() {
                     if (checkUrl(listaInputs[3].value)) {
                         questoesQuiz[i].answers[0].image = listaInputs[3].value;
                         questoesQuiz[i].answers[0].isCorrectAnswer = true;
-                        if (listaInputs[4].value.length != 0) {
-                            questoesQuiz[i].answers.push(respostaPush);
+                        if(listaInputs[4].value.length != 0){
+                            questoesQuiz[i].answers.push({text: "", image: "",isCorrectAnswer: false});
                             questoesQuiz[i].answers[1].text = listaInputs[4].value;
                             if (checkUrl(listaInputs[5].value)) {
                                 questoesQuiz[i].answers[1].image = listaInputs[5].value;
-                                questoesQuiz[i].answers[1].isCorrectAnswer = false;
-                                if (listaInputs[6].value.length != 0) {
-                                    if (checkUrl(listaInputs[7].value)) {
-                                        questoesQuiz[i].answers.push(respostaPush);
-                                        questoesQuiz[i].answers[2].text = listaInputs[6].value;
+                                if(listaInputs[6].value.length != 0){
+                                    if(checkUrl(listaInputs[7].value)){
+                                        questoesQuiz[i].answers.push({text: "", image: "",isCorrectAnswer: false});
+                                        questoesQuiz[i].answers[2].text = listaInputs[6].value;                              
                                         questoesQuiz[i].answers[2].image = listaInputs[7].value;
-                                        questoesQuiz[i].answers[2].isCorrectAnswer = false;
-                                        if (listaInputs[8].value.length != 0) {
-                                            if (checkUrl(listaInputs[9].value)) {
-                                                questoesQuiz[i].answers.push(respostaPush);
+                                        if(listaInputs[8].value.length != 0){
+                                            if(checkUrl(listaInputs[9].value)){
+                                                questoesQuiz[i].answers.push({text: "", image: "",isCorrectAnswer: false});
                                                 questoesQuiz[i].answers[3].text = listaInputs[8].value;
-                                                questoesQuiz[i].answers[3].image = listaInputs[9].value;
-                                                questoesQuiz[i].answers[3].isCorrectAnswer = false;
+                                                questoesQuiz[i].answers[3].image = listaInputs[9].value;                                    
                                             }
                                         }
                                     }
@@ -430,10 +419,8 @@ function verificaPerguntas() {
             return;
         }
     }
-    listaInputs.forEach(element => element.value = '');
     changeLayout('desktop-9', 'desktop10');
     displayCriaNiveis();
-
 }
 
 
@@ -525,11 +512,11 @@ function verificaNiveis() {
         }
     }
 
-    if (teveZero) {
-        console.log(questoesQuiz);
-        let objetoQuestao = { questions: questoesQuiz };
-        let objetoNiveis = { levels: nivelPerguntas };
-        let quizzPronto = Object.assign({}, quizCriado, objetoQuestao, objetoNiveis);
+    if(teveZero)
+    {
+        let objetoQuestao = {questions:questoesQuiz};
+        let objetoNiveis = {levels:nivelPerguntas};
+        let quizzPronto = Object.assign({}, quizCriado, objetoQuestao,objetoNiveis);
         const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzPronto);
         promessa.then(resultadoCriarQuiz);
         promessa.catch(requestError);
@@ -546,8 +533,10 @@ function resultadoCriarQuiz(response) {
     const menuSucesso = document.querySelector('.quarta-aba');
     const meuQuiz = response.data;
     console.log(response);
-    localStorage.setItem(`Quiz id ${meuQuiz.id}`, meuQuiz.id);
-    changeLayout('desktop10', 'desktop11');
+    if(response.status == '201'){
+        localStorage.setItem(`Quiz id ${meuQuiz.id}`,meuQuiz.id);
+    changeLayout('desktop10','desktop11');
+
     menuSucesso.innerHTML = `
     <div class="titulo">
         <h1>Seu quizz está pronto!</h1>
@@ -566,7 +555,10 @@ function resultadoCriarQuiz(response) {
     <div class="voltar-home" onclick="changeLayout('criar-quizz','lista-quizzes'); requestQuizzes();">
         <h1>Voltar pra home</h1>
     </div>
-    `;
+    `;   
+    } else{
+        alert('O quiz não foi aceito. Verifique se preencheu todos os dados corretamente e tente novamente');
+    }
 }
 
 // Não esquecer os atributos p/ correção automática
