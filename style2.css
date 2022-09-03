@@ -56,7 +56,7 @@
     justify-content: center;
     font-weight: 700;
     font-size: 23px;
-    word-break: break-all;
+    word-break: break-word;
     text-align: center;
 }
 
@@ -72,6 +72,7 @@
 
 .alternativa {
     width: 332px;
+    cursor: pointer;
 }
 
 .alternativa>p {
@@ -79,7 +80,7 @@
     line-height: 25px;
     font-weight: 700;
     margin-top: 9px;
-    word-break: break-all;
+    word-break: break-word;
     margin-bottom: 20px;
 
 }
@@ -108,7 +109,7 @@
     font-size: 23px;
     background-color: #EC362D;
     margin-bottom: 18px;
-    word-break: break-all;
+    word-break: break-word;
     text-align: center;
 
 }
@@ -128,7 +129,7 @@
     line-height: 25px;
     font-weight: 700;
     color: #484848;
-    word-break: break-all;
+    word-break: break-word;
 }
 
 .finalizar-quizz {
@@ -152,11 +153,13 @@
     border-radius: 15px;
     color: white;
     background-color: #EC362D;
+    cursor: pointer;
 }
 
 .botao-home {
     background-color: rgba(0, 0, 0, 0);
     color: #818181;
+    cursor: pointer;
 }
 
 .esfumacado {

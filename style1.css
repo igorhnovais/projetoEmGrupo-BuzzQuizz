@@ -68,6 +68,7 @@ header {
     width: 151px;
     height: 40px;
     margin-bottom: 40px;
+    cursor: pointer;
 }
 
 .seus-quizzes {
@@ -87,6 +88,7 @@ header {
 .seus-quizzes>ion-icon {
     font-size: 30px;
     color: #EC362D;
+    cursor: pointer;
 }
 
 .container-quizzes {
@@ -113,7 +115,8 @@ header {
     width: 340px;
     font-size: 19px;
     font-weight: 400;
-    word-break: break-all;
+    word-break: break-word;
+    cursor: pointer;
 }
 
 .box-quizz>img {
@@ -127,8 +130,7 @@ header {
     position: absolute;
     font-size: 19px;
     font-weight: 400;
-    width: fit-content;
-    min-width: 300px;
+    width: 340px;
     bottom: 0px;
     left: 0px;
     padding: 20px;
