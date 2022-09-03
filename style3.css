@@ -75,6 +75,7 @@ input {
     height: 825px;
     display: flex;
     justify-content: center;
+    margin-top: 20px;
     padding-top: 21px;
 }
 
@@ -101,12 +102,17 @@ h2 {
 }
 
 .espaço {
+    display: flex;
+    flex-direction: column;
     margin-top: 15px;
-    margin-left: 11px;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 .espaço input {
     margin-bottom: 10px;
+    margin-right: 10px;
 }
 
 .pergunta-nova {
@@ -144,6 +150,7 @@ h2 {
     height: 256px;
     display: flex;
     justify-content: center;
+    margin-top: 15px;
     padding-top: 21px;
 }
 
@@ -179,55 +186,72 @@ h2 {
         width: 341px;
     }
 
+    .caixa-perguntas{
+        width: 370px;
+    }
+
     .caixa-crie-perguntas{
         width: 370px;
     }
     .caixa-perguntas-nivel{
         width: 360px;
+        padding-bottom: 10px;
     }
 
     .pergunta-nova{
-        width: 360px;
+        width: 370px;
+    }
+
+    .prosseguir{
+        margin-top: 50px;
     }
 
 }
 
 @media (max-width: 624px){
 
-
-    input{
-        width: 341px;
-    }
     .caixa-perguntas{
-        width: 400px;
+        width: 345px;
     }
 
     .prosseguir > h1{
         font-size: 16px;
     }
 
-    /* fim desktop 8 */
+    .caixa-perguntas-nivel{
+        padding-bottom: 10px;
+    }
 
     input{
         width: 320px;
+        
     }
 
     .caixa-crie-perguntas{
-        width: 300px;
+        width: 340px;
     }
 
     .espaço {
         margin-left: 17px;
     }
 
-    /*fim do desktop 9 */
+    .pergunta-nova{
+        width: 360px ;
+    }
  
 }
 
 @media (max-width: 460px){
 
     input{
-        width: 250px;
+        width: 270px;
+    }
+
+    .caixa-perguntas{
+        width: 310px;
+    }
+    .caixa-crie-perguntas{
+        width: 290px;
     }
 
     .caixa-perguntas-nivel{
@@ -245,31 +269,6 @@ h2 {
 
 @media (max-width: 440px){
 
-    .box-quizz{
-        width: auto;
-        text-align: center;
-        padding: 40px 20px;
-        max-width: 90%;
-        margin: auto;
-        margin-right: 20px;
-       
-    }
-
-    .titulo-box-quizz{
-        width:min-content;
-        font-size: 16px;
-        margin: auto;
-        margin-bottom: 40px;
-        margin-left: 35px;
-        margin-right: 0px;
-        padding-left: 15px;
-        min-width: 245px;
-    }
-
-    .box-quizz > img {
-        max-width: 90%;
-    }
-    
     .prosseguir{
         width: 250px;
     }
