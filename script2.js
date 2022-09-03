@@ -264,20 +264,20 @@ function criarQuizzNovo() {
                     numeroDeNiveis = inputList[3].value;
                     sucesso = true;
                 } else {
-                    alert('invalido, verifique o numero de niveis');
+                    alert('Verifique o numero de Níveis (2 ou mais)');
                     return;
                 }
             } else {
-                alert('invalido, verifique o numero de perguntas');
+                alert('Verifique o número de perguntas (3 ou mais)');
                 return;
             }
         } else {
-            alert('invalido, verifique a url');
+            alert('Por favor, digite uma URL válida.');
             return;
         }
 
     } else {
-        alert('invalido, verifique o titulo (minimo 20 e maximo 65 caracteres)');
+        alert('Verifique o título (entre 20 e 65 caracteres)');
         return;
     }
 
@@ -398,7 +398,7 @@ function verificaPerguntas() {
                                     }
                                 }
                             } else {
-                                alert('O formato não é uma url');
+                                alert('URL inválida');
                                 resetaArray(questoesQuiz);
                                 return;
                             }
@@ -408,7 +408,7 @@ function verificaPerguntas() {
                             return;
                         }
                     } else {
-                        alert('O formato não é uma url');
+                        alert('URL inválida');
                         resetaArray(questoesQuiz);
                         return;
                     }
@@ -425,7 +425,7 @@ function verificaPerguntas() {
             }
 
         } else {
-            alert('texto invalido. Mínimo de 20 caracteres');
+            alert('Verifique o título (entre 20 e 65 caracteres)');
             resetaArray(questoesQuiz);
             return;
         }
@@ -504,22 +504,22 @@ function verificaNiveis() {
                         nivelPerguntas[i].text = listaInputs[3].value;
                         sucesso = true;
                     } else {
-                        alert('quantidade de caracteres tem que ser maior que 30');
+                        alert('Sua mensagem deve conter 30 caracteres ou mais');
                         resetaArray(nivelPerguntas);
                         return;
                     }
                 } else {
-                    alert('url inserido invalido');
+                    alert('URL inválida');
                     resetaArray(nivelPerguntas);
                     return;
                 }
             } else {
-                alert('porcentagem invalida');
+                alert('Valor de porcentagem (%) inválido');
                 resetaArray(nivelPerguntas);
                 return;
             }
         } else {
-            alert('digitar a quantidade de caracteres correta');
+            alert('O Título do seu Nível deve conter 10 caracteres ou mais');
             resetaArray(nivelPerguntas);
             return;
         }
@@ -535,7 +535,7 @@ function verificaNiveis() {
         promessa.catch(requestError);
         console.log(quizzPronto);
     } else {
-        alert('obrigatorio existir pelo menos um nivel com acerto minimo de 0%');
+        alert('Obrigatório pelo menos um nivel com acerto minimo de 0%');
         resetaArray(nivelPerguntas);
     }
 
