@@ -346,13 +346,8 @@ function displayCriarPerguntas() {
 function verificaPerguntas() {
     let listaInputs;
     resetaArray(questoesQuiz);
-<<<<<<< HEAD
     for(let i = 0; i < numeroDePerguntas; i++){
         let questaoPush = {
-=======
-    for (let i = 0; i < numeroDePerguntas; i++) {
-        questaoPush = {
->>>>>>> ac545475401705863ecb228af19cacb68d5559a2
             title: "",
             color: "",
             answers: [{
@@ -361,16 +356,7 @@ function verificaPerguntas() {
                 isCorrectAnswer: false
             }]
         };
-<<<<<<< HEAD
         listaInputs = document.querySelectorAll(`.pergunta${i+1} input`);
-=======
-        respostaPush = {
-            text: "",
-            image: "",
-            isCorrectAnswer: false
-        };
-        listaInputs = document.querySelectorAll(`.pergunta${i + 1} input`);
->>>>>>> ac545475401705863ecb228af19cacb68d5559a2
         questoesQuiz.push(questaoPush);
         if (listaInputs[0].value.length >= 20) {
             questoesQuiz[i].title = listaInputs[0].value;
@@ -381,17 +367,11 @@ function verificaPerguntas() {
                     if (checkUrl(listaInputs[3].value)) {
                         questoesQuiz[i].answers[0].image = listaInputs[3].value;
                         questoesQuiz[i].answers[0].isCorrectAnswer = true;
-<<<<<<< HEAD
                         if(listaInputs[4].value.length != 0){
                             questoesQuiz[i].answers.push({text: "", image: "",isCorrectAnswer: false});
-=======
-                        if (listaInputs[4].value.length != 0) {
-                            questoesQuiz[i].answers.push(respostaPush);
->>>>>>> ac545475401705863ecb228af19cacb68d5559a2
                             questoesQuiz[i].answers[1].text = listaInputs[4].value;
                             if (checkUrl(listaInputs[5].value)) {
                                 questoesQuiz[i].answers[1].image = listaInputs[5].value;
-<<<<<<< HEAD
                                 if(listaInputs[6].value.length != 0){
                                     if(checkUrl(listaInputs[7].value)){
                                         questoesQuiz[i].answers.push({text: "", image: "",isCorrectAnswer: false});
@@ -402,21 +382,6 @@ function verificaPerguntas() {
                                                 questoesQuiz[i].answers.push({text: "", image: "",isCorrectAnswer: false});
                                                 questoesQuiz[i].answers[3].text = listaInputs[8].value;
                                                 questoesQuiz[i].answers[3].image = listaInputs[9].value;                                    
-=======
-                                questoesQuiz[i].answers[1].isCorrectAnswer = false;
-                                if (listaInputs[6].value.length != 0) {
-                                    if (checkUrl(listaInputs[7].value)) {
-                                        questoesQuiz[i].answers.push(respostaPush);
-                                        questoesQuiz[i].answers[2].text = listaInputs[6].value;
-                                        questoesQuiz[i].answers[2].image = listaInputs[7].value;
-                                        questoesQuiz[i].answers[2].isCorrectAnswer = false;
-                                        if (listaInputs[8].value.length != 0) {
-                                            if (checkUrl(listaInputs[9].value)) {
-                                                questoesQuiz[i].answers.push(respostaPush);
-                                                questoesQuiz[i].answers[3].text = listaInputs[8].value;
-                                                questoesQuiz[i].answers[3].image = listaInputs[9].value;
-                                                questoesQuiz[i].answers[3].isCorrectAnswer = false;
->>>>>>> ac545475401705863ecb228af19cacb68d5559a2
                                             }
                                         }
                                     }
@@ -547,19 +512,11 @@ function verificaNiveis() {
         }
     }
 
-<<<<<<< HEAD
     if(teveZero)
     {
         let objetoQuestao = {questions:questoesQuiz};
         let objetoNiveis = {levels:nivelPerguntas};
         let quizzPronto = Object.assign({}, quizCriado, objetoQuestao,objetoNiveis);
-=======
-    if (teveZero) {
-        console.log(questoesQuiz);
-        let objetoQuestao = { questions: questoesQuiz };
-        let objetoNiveis = { levels: nivelPerguntas };
-        let quizzPronto = Object.assign({}, quizCriado, objetoQuestao, objetoNiveis);
->>>>>>> ac545475401705863ecb228af19cacb68d5559a2
         const promessa = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizzPronto);
         promessa.then(resultadoCriarQuiz);
         promessa.catch(requestError);
@@ -576,14 +533,10 @@ function resultadoCriarQuiz(response) {
     const menuSucesso = document.querySelector('.quarta-aba');
     const meuQuiz = response.data;
     console.log(response);
-<<<<<<< HEAD
     if(response.status == '201'){
         localStorage.setItem(`Quiz id ${meuQuiz.id}`,meuQuiz.id);
     changeLayout('desktop10','desktop11');
-=======
-    localStorage.setItem(`Quiz id ${meuQuiz.id}`, meuQuiz.id);
-    changeLayout('desktop10', 'desktop11');
->>>>>>> ac545475401705863ecb228af19cacb68d5559a2
+
     menuSucesso.innerHTML = `
     <div class="titulo">
         <h1>Seu quizz está pronto!</h1>
@@ -602,14 +555,10 @@ function resultadoCriarQuiz(response) {
     <div class="voltar-home" onclick="changeLayout('criar-quizz','lista-quizzes'); requestQuizzes();">
         <h1>Voltar pra home</h1>
     </div>
-<<<<<<< HEAD
     `;   
     } else{
         alert('O quiz não foi aceito. Verifique se preencheu todos os dados corretamente e tente novamente');
     }
-=======
-    `;
->>>>>>> ac545475401705863ecb228af19cacb68d5559a2
 }
 
 // Não esquecer os atributos p/ correção automática
