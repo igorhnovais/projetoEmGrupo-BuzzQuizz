@@ -91,8 +91,7 @@ function initQuizzes(response) {
             <h1>Seus Quizzes</h1>
             <ion-icon name="add-circle" onclick="changeLayout('lista-quizzes','criar-quizz')"></ion-icon>
         </div>
-        <div class="container-seus-quizzes">   
-        </div>
+        <div class="container-seus-quizzes"></div>
         `;
     myQuizzes = document.querySelector('.container-seus-quizzes');
 
@@ -346,11 +345,9 @@ function displayCriarPerguntas() {
 
 function verificaPerguntas(){
     let listaInputs;
-    let questaoPush;
-    let respostaPush;
     resetaArray(questoesQuiz);
     for(let i = 0; i < numeroDePerguntas; i++){
-        questaoPush = {
+        let questaoPush = {
             title: "",
             color: "",
             answers: [{
@@ -358,11 +355,6 @@ function verificaPerguntas(){
                 image: "",
                 isCorrectAnswer: false
             }]
-        };
-        respostaPush = {
-            text: "",
-            image: "",
-            isCorrectAnswer: false
         };
         listaInputs = document.querySelectorAll(`.pergunta${i+1} input`);
         questoesQuiz.push(questaoPush);
@@ -376,23 +368,20 @@ function verificaPerguntas(){
                         questoesQuiz[i].answers[0].image = listaInputs[3].value;
                         questoesQuiz[i].answers[0].isCorrectAnswer = true;
                         if(listaInputs[4].value.length != 0){
-                            questoesQuiz[i].answers.push(respostaPush);
+                            questoesQuiz[i].answers.push({text: "", image: "",isCorrectAnswer: false});
                             questoesQuiz[i].answers[1].text = listaInputs[4].value;
                             if(checkUrl(listaInputs[5].value)){
                                 questoesQuiz[i].answers[1].image = listaInputs[5].value;
-                                questoesQuiz[i].answers[1].isCorrectAnswer = false;
                                 if(listaInputs[6].value.length != 0){
                                     if(checkUrl(listaInputs[7].value)){
-                                        questoesQuiz[i].answers.push(respostaPush);
-                                        questoesQuiz[i].answers[2].text = listaInputs[6].value;
+                                        questoesQuiz[i].answers.push({text: "", image: "",isCorrectAnswer: false});
+                                        questoesQuiz[i].answers[2].text = listaInputs[6].value;                              
                                         questoesQuiz[i].answers[2].image = listaInputs[7].value;
-                                        questoesQuiz[i].answers[2].isCorrectAnswer = false;
                                         if(listaInputs[8].value.length != 0){
                                             if(checkUrl(listaInputs[9].value)){
-                                                questoesQuiz[i].answers.push(respostaPush);
+                                                questoesQuiz[i].answers.push({text: "", image: "",isCorrectAnswer: false});
                                                 questoesQuiz[i].answers[3].text = listaInputs[8].value;
-                                                questoesQuiz[i].answers[3].image = listaInputs[9].value;
-                                                questoesQuiz[i].answers[3].isCorrectAnswer = false;                                         
+                                                questoesQuiz[i].answers[3].image = listaInputs[9].value;                                    
                                             }
                                         }
                                     }
@@ -430,10 +419,8 @@ function verificaPerguntas(){
             return;
         }
     }
-    listaInputs.forEach(element => element.value = '');
     changeLayout('desktop-9', 'desktop10');
     displayCriaNiveis();
-
 }
 
 
@@ -527,7 +514,6 @@ function verificaNiveis(){
 
     if(teveZero)
     {
-        console.log(questoesQuiz);
         let objetoQuestao = {questions:questoesQuiz};
         let objetoNiveis = {levels:nivelPerguntas};
         let quizzPronto = Object.assign({}, quizCriado, objetoQuestao,objetoNiveis);
@@ -547,7 +533,8 @@ function resultadoCriarQuiz(response){
     const menuSucesso = document.querySelector('.quarta-aba');
     const meuQuiz = response.data;
     console.log(response);
-    localStorage.setItem(`Quiz id ${meuQuiz.id}`,meuQuiz.id);
+    if(response.status == '201'){
+        localStorage.setItem(`Quiz id ${meuQuiz.id}`,meuQuiz.id);
     changeLayout('desktop10','desktop11');
     menuSucesso.innerHTML = `
     <div class="titulo">
@@ -568,6 +555,9 @@ function resultadoCriarQuiz(response){
         <h1>Voltar pra home</h1>
     </div>
     `;   
+    } else{
+        alert('O quiz não foi aceito. Verifique se preencheu todos os dados corretamente e tente novamente');
+    }
 }
 
  // Não esquecer os atributos p/ correção automática
