@@ -20,7 +20,7 @@
         <section class="desktop-1">
             <div class="quizzes-vazios">
                 <p>Você não criou nenhum quizz ainda :(</p>
-                <button data-identifier="create-quizz" onclick="changeLayout('lista-quizzes','criar-quizz')">Criar
+                <button data-identifier="create-quizz" id="criar-quizz-botao" onclick="changeLayout('lista-quizzes','criar-quizz'); toggleMenus('.desktop-8');">Criar
                     Quizz</button>
             </div>
         </section>
@@ -193,7 +193,7 @@
 
         <section class="desktop-9 escondido">
             <nav class="segunda-aba">
-                <div class="titulo">
+        <!--    <div class="titulo">
                     <h1>Crie suas perguntas</h1>
                 </div>
 
@@ -221,7 +221,7 @@
                             <input placeholder="Url da imagem 3" />
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- mudar a classe "pergunta-nova" para "pergunta-reduzida" depois -->
                 <!-- <div class="pergunta-nova"> 
                     <h2>Pergunta 2</h2>
@@ -241,7 +241,7 @@
 
         <section class="desktop10 escondido">
             <nav class="terceira-aba">
-          <!--  <div class="titulo">
+         <!--   <div class="titulo">
                     <h1>Agora, decida os níveis</h1>
                 </div>
 
@@ -251,7 +251,7 @@
                         <input placeholder="Titulo do nível" />
                         <input placeholder="% de acerto mínima" />
                         <input placeholder="Url da imagem do nível" />
-                        <input placeholder="Descrição do nível" />
+                        <input placeholder="Descrição do nível" id="config-input"/>
                     </div>
                 </div>
 
@@ -273,7 +273,7 @@
 
         <section class="desktop11 escondido">
             <nav class="quarta-aba">
-                <div class="titulo">
+        <!--    <div class="titulo">
                     <h1>Seu quizz está pronto!</h1>
                 </div>
 
@@ -290,7 +290,7 @@
 
                 <div class="voltar-home" onclick="changeLayout('criar-quizz','lista-quizzes')">
                     <h1>Voltar pra home</h1>
-                </div>
+                </div> -->
             </nav>
         </section>
     </main>

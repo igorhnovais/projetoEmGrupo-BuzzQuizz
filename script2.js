@@ -434,7 +434,7 @@ function displayCriaNiveis() {
                     <input placeholder="Titulo do nível" />
                     <input placeholder="% de acerto mínima" />
                     <input placeholder="Url da imagem do nível" />
-                    <input placeholder="Descrição do nível" />
+                    <input placeholder="Descrição do nível" id="config-input" />
                 </div>
             </div>
             `;

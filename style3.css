@@ -50,6 +50,11 @@ input {
     padding-left: 10px;
 }
 
+#config-input{
+    height: 177px;  
+    padding-bottom: 130px;
+}
+
 .prosseguir {
     background-color: red;
     color: #FFF5F4;
