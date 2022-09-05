@@ -20,7 +20,7 @@
         <section class="desktop-1">
             <div class="quizzes-vazios">
                 <p>Você não criou nenhum quizz ainda :(</p>
-                <button id="criar-quizz-botao" onclick="changeLayout('lista-quizzes','criar-quizz')">Criar
+                <button data-identifier="create-quizz" onclick="changeLayout('lista-quizzes','criar-quizz')">Criar
                     Quizz</button>
             </div>
         </section>
@@ -49,7 +49,7 @@
             </div>
         </section>
         <h1 class="quizzes-todos">Todos os Quizzes</h1>
-        <div class="container-quizzes">
+        <div data-identifier="general-quizzes" class="container-quizzes">
             <div class="box-quizz">
                 <img src="./imagens/quizz-publico.png" />
                 <div class="titulo-box-quizz">
@@ -149,7 +149,7 @@
             </div>
         </section>
         <section class="desktop-7 escondido">
-            <div class="box-resultado">
+            <div data-identifier="quizz-result" class="box-resultado">
                 <div class="titulo-resultado">
                     88% de acerto: Você é praticamente um aluno de Hogwarts!
                 </div>
@@ -170,7 +170,7 @@
     </main>
 
     <main class="criar-quizz escondido">
-        <section class="desktop-8">
+        <section class="desktop-8 escondido">
             <nav class="primeira-aba">
                 <div class="titulo">
                     <h1>Comece pelo começo</h1>
@@ -185,7 +185,7 @@
                     </div>
                 </div>
 
-                <div class="prosseguir" onclick="criarQuizzNovo()">
+                <div class="prosseguir" onclick="criarQuizzNovo();">
                     <h1>Prosseguir pra criar perguntas</h1>
                 </div>
             </nav>

@@ -69,6 +69,11 @@ function resetaArray(arrayRecebido) {
     }
 }
 
+//  Exibe/esconde todos os elementos com a classe passada por parâmetro
+function toggleMenus(classe) {
+    document.querySelectorAll(classe).forEach(element => element.classList.toggle("escondido"));
+}
+
 //  --------------------------Fim funções auxiliares pro nosso código--------------------------------
 
 
@@ -89,9 +94,9 @@ function initQuizzes(response) {
     myQuizzes.innerHTML = `
         <div class="seus-quizzes">
             <h1>Seus Quizzes</h1>
-            <ion-icon name="add-circle" onclick="changeLayout('lista-quizzes','criar-quizz')"></ion-icon>
+            <ion-icon name="add-circle" data-identifier="create-quizz" onclick="changeLayout('lista-quizzes','criar-quizz'); toggleMenus('.desktop-8');"></ion-icon>
         </div>
-        <div class="container-seus-quizzes"></div>
+        <div data-identifier="user-quizzes" class="container-seus-quizzes"></div>
         `;
     myQuizzes = document.querySelector('.container-seus-quizzes');
 
@@ -99,13 +104,13 @@ function initQuizzes(response) {
     response.data.forEach(element => {
         if (isUserQuiz(element.id)) {
             myQuizzes.innerHTML += `
-            <div class="box-quizz ${element.id}" onclick="clickedQuiz(${element.id})">
+            <div data-identifier="quizz-card" class="box-quizz ${element.id}" onclick="clickedQuiz(${element.id})">
                 <img src= ${element.image} />
                 <div class="titulo-box-quizz">${element.title}</div>
             </div>`;
         }
         allQuizzes.innerHTML += `
-        <div class="box-quizz ${element.id}" onclick="clickedQuiz(${element.id})">
+        <div data-identifier="quizz-card" class="box-quizz ${element.id}" onclick="clickedQuiz(${element.id})">
             <img src= ${element.image} />
             <div class="titulo-box-quizz">${element.title}</div>
         </div>`
@@ -144,14 +149,14 @@ function displayQuiz(response) {
         element.answers.sort(comparador);
         element.answers.forEach(answer => {
             layoutAnswers += `
-            <li class="alternativa ${answer.isCorrectAnswer}" onclick="selectOptionQuiz(this)">
+            <li data-identifier="answer" class="alternativa ${answer.isCorrectAnswer}" onclick="selectOptionQuiz(this)">
                 <img src=${answer.image} />
                 <p>${answer.text}</p>
             </li>    
             `;
         });
         layoutShowQuiz.innerHTML += `
-        <div class="box-pergunta">
+        <div data-identifier="question" class="box-pergunta">
             <div style="background-color:${element.color};" class="titulo-pergunta">
                 ${element.title}
             </div>
@@ -232,21 +237,12 @@ function resultQuiz() {
         <p>${levelAchieved.text}</p>
     </div>
     <div class="finalizar-quizz">
-        <button class="botao-reiniciar" onclick='restartQuiz()'>Reiniciar Quizz</button>
-        <button class="botao-home" onclick="changeLayout('pagina-quizz','lista-quizzes')">Voltar pra Home</button>
+        <button class="botao-reiniciar" onclick="toggleMenus('.desktop-7'); displayQuiz(responseQuiz);">Reiniciar Quizz</button>
+        <button class="botao-home" onclick="changeLayout('pagina-quizz','lista-quizzes'); toggleMenus('.desktop-7');">Voltar pra Home</button>
     </div>`
         ;
     boxResultado.parentElement.classList.remove('escondido');
     boxResultado.scrollIntoView({ behavior: "smooth" });
-}
-
-/*  restartQuiz(this) -> recebe o quiz a ser reiniciado, e limpa tudo o que o usuário preencheu,
-retornando ao estado inicial de exibição do quiz  */
-
-function restartQuiz() {
-    const boxResultado = document.querySelector('.box-resultado');
-    boxResultado.parentElement.classList.add('escondido');
-    displayQuiz(responseQuiz);
 }
 
 
@@ -285,14 +281,6 @@ function criarQuizzNovo() {
     displayCriarPerguntas();
 }
 
-//  Exibe/esconde os menus de preenchimento de perguntas e níveis
-function exibeMenus(classeRecebida) {
-    const perguntaExibida = document.querySelectorAll(classeRecebida);
-    perguntaExibida[0].classList.toggle("escondido");
-    perguntaExibida[1].classList.toggle("escondido");
-}
-
-// pulou de tela =>
 
 function displayCriarPerguntas() {
 
@@ -306,11 +294,11 @@ function displayCriarPerguntas() {
         segundaAba.innerHTML += ` 
         <div class="pergunta-nova pergunta${i}">
             <h2>Pergunta ${i}</h2>
-            <img src="./imagens/Vector.svg" onclick="exibeMenus('.pergunta${i}')"/>
+            <img src="./imagens/Vector.svg" data-identifier="expand" onclick="toggleMenus('.pergunta${i}')"/>
         </div>
-        <div class="caixa-crie-perguntas escondido pergunta${i}">
+        <div data-identifier="question-form" class="caixa-crie-perguntas escondido pergunta${i}">
             <div class="crie-perguntas">
-                <h2 onclick="exibeMenus('.pergunta${i}')">Pergunta ${i}</h2>
+                <h2 onclick="toggleMenus('.pergunta${i}')">Pergunta ${i}</h2>
                 <input placeholder="Texto da pergunta" />
                 <input placeholder="Cor de fundo da pergunta" />
 
@@ -336,10 +324,10 @@ function displayCriarPerguntas() {
     `
     }
     segundaAba.innerHTML += `
-    <div class="prosseguir" onclick="verificaPerguntas()">
+    <div class="prosseguir" onclick="verificaPerguntas();">
         <h1>Prosseguir pra criar níveis</h1>
     </div>`;
-    exibeMenus('.pergunta1');
+    toggleMenus('.pergunta1');
 }
 
 
@@ -438,11 +426,11 @@ function displayCriaNiveis() {
         criarNiveis.innerHTML += `
             <div class="pergunta-nova nivel${i + 1}">
                     <h2> Nível ${i + 1} </h2>
-                    <img src="./imagens/Vector.svg" onclick="exibeMenus('.nivel${i + 1}')"/>
+                    <img src="./imagens/Vector.svg" data-identifier="expand" onclick="toggleMenus('.nivel${i + 1}')"/>
             </div>
-            <div class="caixa-perguntas-nivel escondido nivel${i + 1}">
+            <div data-identifier="level" class="caixa-perguntas-nivel escondido nivel${i + 1}">
                 <div class="perguntas">
-                    <h2 onclick="exibeMenus('.nivel${i + 1}')">Nível ${i + 1}</h2>
+                    <h2 onclick="toggleMenus('.nivel${i + 1}')">Nível ${i + 1}</h2>
                     <input placeholder="Titulo do nível" />
                     <input placeholder="% de acerto mínima" />
                     <input placeholder="Url da imagem do nível" />
@@ -453,12 +441,12 @@ function displayCriaNiveis() {
     }
 
     criarNiveis.innerHTML += `
-            <div class="prosseguir" onclick="verificaNiveis()">
+            <div class="prosseguir" onclick="verificaNiveis();">
                 <h1>Finalizar quizz</h1>
             </div>
          `;
 
-    exibeMenus('.nivel1');
+    toggleMenus('.nivel1');
 
 
 }
@@ -548,11 +536,11 @@ function resultadoCriarQuiz(response) {
         </div>
     </div>
 
-    <div class="prosseguir" onclick="changeLayout('criar-quizz','lista-quizzes'); clickedQuiz(${meuQuiz.id})">
+    <div class="prosseguir" onclick="toggleMenus('.desktop11'); changeLayout('criar-quizz','lista-quizzes'); clickedQuiz(${meuQuiz.id})">
         <h1>Acessar quizz</h1>
     </div>
 
-    <div class="voltar-home" onclick="changeLayout('criar-quizz','lista-quizzes'); requestQuizzes();">
+    <div class="voltar-home" onclick="toggleMenus('.desktop11'); changeLayout('criar-quizz','lista-quizzes'); requestQuizzes();">
         <h1>Voltar pra home</h1>
     </div>
     `;   
