@@ -245,7 +245,7 @@ function resultQuiz() {
     boxResultado.scrollIntoView({ behavior: "smooth" });
 }
 
-
+// função para criar um quizz novo verificando os inputs
 function criarQuizzNovo() {
     const inputList = document.querySelectorAll('.perguntas input');
 
@@ -281,7 +281,7 @@ function criarQuizzNovo() {
     displayCriarPerguntas();
 }
 
-
+// depois de passado os parametros, cria o layout para fazer as perguntas
 function displayCriarPerguntas() {
 
     const segundaAba = document.querySelector(".segunda-aba");
@@ -330,7 +330,7 @@ function displayCriarPerguntas() {
     toggleMenus('.pergunta1');
 }
 
-
+// função para verificar as perguntas 
 function verificaPerguntas() {
     let listaInputs;
     resetaArray(questoesQuiz);
